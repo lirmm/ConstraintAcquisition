@@ -1,0 +1,14 @@
+nbVars 30
+domainSize 1 30
+
+Gamma 
+EqualXY
+DifferentXY
+GreaterXY
+LessXY
+GreaterEqualXY
+LessEqualXY
+OutDiag1
+InDiag1
+OutDiag2
+InDiag2

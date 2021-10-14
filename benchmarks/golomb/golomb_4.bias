@@ -1,0 +1,22 @@
+nbVars 4
+domainSize 1 16
+
+Gamma 
+EqualXY
+DifferentXY
+GreaterXY
+LessXY
+GreaterEqualXY
+LessEqualXY
+DistDiffXYZ
+DistEqualXYZ
+DistGreaterXYZ
+DistLessEqualXYZ
+DistLessXYZ
+DistGreaterEqualXYZ
+DistDiffXYZT
+DistEqualXYZT
+DistGreaterXYZT
+DistLessEqualXYZT
+DistLessXYZT
+DistGreaterEqualXYZT

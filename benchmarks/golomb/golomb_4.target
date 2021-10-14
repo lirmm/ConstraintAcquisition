@@ -1,0 +1,6 @@
+LessXY 0 1
+LessXY 1 2
+LessXY 2 3
+DistDiffXYZT 2 0 1 0
+DistDiffXYZT 2 1 1 0
+DistDiffXYZ 2 1 0
