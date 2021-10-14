@@ -1,0 +1,291 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4 déc. 2019, 19:31:32
+    Author     : agutierr
+*/
+
+graph {
+	fill-color: AliceBlue;
+}
+
+node {
+	size: 10px, 15px;
+	shape: box;
+	fill-color: black;
+	stroke-mode: plain;
+	stroke-color: yellow;
+}
+node.variable{
+	size: 15px, 15px;
+	shape: box;
+	fill-color: Violet;
+	stroke-mode: plain;
+	stroke-color: Black;
+    
+}
+node.DifferentXY{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: Red;
+	stroke-mode: plain;
+	stroke-color: yellow;
+    
+}
+node.EqualXY{
+	size: 10px, 10px;
+	shape: diamond;
+	fill-color: Green;
+	stroke-mode: plain;
+	stroke-color: Black;
+    
+}
+node.AllDiff{
+	size: 20px, 15px;
+	shape: circle;
+	fill-color: Black;
+	stroke-mode: plain;
+	stroke-color: yellow;
+    
+}
+node:selected {
+	fill-color: red;
+	size: 50px, 50px;        
+}
+node:clicked {
+	fill-color: red;
+}
+edge {
+    shape: blob;
+    fill-color: DimGray;    
+}
+edge.AllDiff {
+    shape: blob;
+    fill-color: Black;    
+}
+edge.DifferentXY {
+    shape: blob;
+    fill-color: red;    
+}
+edge.EqualXY {
+    shape: blob;
+    fill-color: Green;    
+}
+
+
+node.OutDiag1{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: blue;
+	stroke-mode: plain;
+	stroke-color: Black;
+    
+}
+edge.OutDiag1 {
+    shape: blob;
+    fill-color: blue;    
+}
+
+
+node.OutDiag2{
+	size: 10px, 10px;
+	shape: box;
+	fill-color: brown;
+	stroke-mode: plain;
+	stroke-color: Black;
+    
+}
+edge.OutDiag2 {
+    shape: blob;
+    fill-color: brown;    
+}
+
+edge.GreaterXY{
+	shape: blob;
+	fill-color: orange;
+
+    
+}
+edge.GreaterEqualXY{
+	shape: blob;
+	fill-color: orangered;
+    
+}
+
+edge.LesserXY{
+		shape: blob;
+	fill-color: peachpuff;
+	
+}
+edge.LessEqualXY{
+	shape: blob;
+	fill-color: palegoldenrod;
+}
+
+edge.AT_Equal{
+		shape: blob;
+	fill-color: palevioletred;
+	
+}
+edge.AT_Diff{
+	shape: blob;
+	fill-color: mediumpurple;
+}
+
+edge.AT_GT{
+		shape: blob;
+	fill-color: midnightblue;
+	
+}
+edge.AT_LT{
+	shape: blob;
+	fill-color: darkseagreen;
+}
+
+node.pool_1_thread_1{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: red;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_1{
+	shape: blob;
+	fill-color: red;
+}
+
+node.pool_1_thread_2{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #ffff00;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_2{
+	shape: blob;
+	fill-color: #ffff00;
+}
+
+node.pool_1_thread_3{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #00ff00;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_3{
+	shape: blob;
+	fill-color: #00ff00;
+}
+
+node.pool_1_thread_4{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #0080ff;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_4{
+	shape: blob;
+	fill-color: #0080ff;
+}
+
+node.pool_1_thread_5{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #ff8000;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_5{
+	shape: blob;
+	fill-color: #ff8000;
+}
+
+node.pool_1_thread_6{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #0000ff;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_6{
+	shape: blob;
+	fill-color: #0000ff;
+}
+
+node.pool_1_thread_7{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #004000;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_7{
+	shape: blob;
+	fill-color: #004000;
+}
+node.pool_1_thread_8{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #804040;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_8{
+	shape: blob;
+	fill-color: #804040;
+}
+
+node.pool_1_thread_9{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #c0c0c0;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_9{
+	shape: blob;
+	fill-color: #c0c0c0;
+}
+
+node.pool_1_thread_10{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #80ffff;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_10{
+	shape: blob;
+	fill-color: #80ffff;
+}
+
+node.pool_1_thread_11{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #808000;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_11{
+	shape: blob;
+	fill-color: #808000;
+}
+
+node.pool_1_thread_12{
+	size: 10px, 10px;
+	shape: circle;
+	fill-color: #ff80ff;
+	stroke-mode: plain;
+	stroke-color: Black;    
+}
+edge.pool_1_thread_12{
+	shape: blob;
+	fill-color: #ff80ff;
+}
+
+

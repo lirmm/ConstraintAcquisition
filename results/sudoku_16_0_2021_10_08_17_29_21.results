@@ -1,0 +1,2 @@
+Date 	 - 	 CL size 	 RelativeAcquisitionRate 	 AbsoluteAcquisitionRate  	 ConvergenceRate 	 #Queries 	 (#Queries/CLsize) 	 #MembershipQueries 	 Query size 	 Acquisition time 	 Running Time 	 Max Waiting Time 	 - 	 #NonAskedQueries 	 BiasInit Size 	 Bias Final Size 	 VRS Heuristic 	 QueryGeneration Heuristic
+2021/10/08 17:29:21	1	49	1.0	56.0	0	434	8	56	5.979263	1,18E0	1,21E0	2,48E-2	04	0	1440	0	Random	SOL
