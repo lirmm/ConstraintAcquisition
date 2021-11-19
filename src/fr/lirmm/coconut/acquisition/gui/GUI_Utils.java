@@ -222,7 +222,7 @@ public class GUI_Utils {
 	public static ImageIcon getImageIcon(String key) {
 
 		try {
-			return new ImageIcon(ExpeHandle.class.getResource("/fr/lirmm/coconut/quacq/resource/" + key));
+			return new ImageIcon(ExpeHandle.class.getResource("/fr/lirmm/coconut/acquisition/resource/" + key));
 		} catch (NullPointerException e) {
 			// image not found
 			System.err.println("can't find image " + key);

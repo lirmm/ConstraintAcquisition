@@ -286,11 +286,11 @@ public abstract class ACQ_Constraint implements ACQ_IConstraint {
 
 			case "AT_GE":
 				return new BinaryArithmetic(cst.get(0), Integer.parseInt(cst.get(1)), Operator.Dist,
-						Integer.parseInt(cst.get(2)), Operator.GE, Integer.parseInt(cst.get(3)) - 1, "AT_LT");
+						Integer.parseInt(cst.get(2)), Operator.GT, Integer.parseInt(cst.get(3)) - 1, "AT_LT");
 
 			case "AT_LE":
 				return new BinaryArithmetic(cst.get(0), Integer.parseInt(cst.get(1)), Operator.Dist,
-						Integer.parseInt(cst.get(2)), Operator.LE, Integer.parseInt(cst.get(3)) + 1, "AT_GT");
+						Integer.parseInt(cst.get(2)), Operator.LT, Integer.parseInt(cst.get(3)) + 1, "AT_GT");
 
 			case "DistDiffQ":
 				return new ScalarArithmetic("DistDiff",

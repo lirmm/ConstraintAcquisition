@@ -77,7 +77,7 @@ public class GSViewer extends JPanel implements PropertyChangeListener {
             }
         }
         if (cssString == null) {
-            InputStream inputStream = GSViewer.class.getResourceAsStream("/fr/lirmm/coconut/quacq/resource/style.css");
+            InputStream inputStream = GSViewer.class.getResourceAsStream("/fr/lirmm/coconut/acquisition/resource/style.css");
             cssString = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining("\n"));
         }
         g.addAttribute("ui.stylesheet", cssString);
