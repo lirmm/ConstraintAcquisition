@@ -11,7 +11,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 
-public class ExpePACQ {
+public class ExpeGEQCA {
 
 	private static  ExpeParser experiment;
 	private static String exp;
