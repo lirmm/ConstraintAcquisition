@@ -127,6 +127,9 @@ public enum ACQ_Relation {
 	public boolean isTransitive() {
 		return transitive;
 	}
+	public boolean IsPrecedence() {
+		return allen;
+	}
 	
 	public Operator getOperator() {
 		// TODO Auto-generated method stub
