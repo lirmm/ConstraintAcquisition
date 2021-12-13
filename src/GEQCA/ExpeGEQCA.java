@@ -93,7 +93,7 @@ public class ExpeGEQCA {
 		final Option helpFileOption = Option.builder("h").longOpt("help").desc("Display help message").build();
 
 		final Option expOption = Option.builder("e").longOpt("exp")
-				.desc("Experience: random / purdey / zebra / meetings / target / sudoku / jsudoku / latin / queens")
+				.desc("Experience: random / purdey / zebra / meetings / target / sudoku / jsudoku / latin / queens / tasks*_*_* / sch_*")
 				.hasArg(true).argName("experience").required(false).build();
 
 		final Option limitOption = Option.builder("t").longOpt("timeout").hasArg(true).argName("timeout in ms")
