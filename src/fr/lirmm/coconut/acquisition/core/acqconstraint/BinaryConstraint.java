@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.lirmm.coconut.quacq.core.acqconstraint;
+package fr.lirmm.coconut.acquisition.core.acqconstraint;
 
 /**
  *
