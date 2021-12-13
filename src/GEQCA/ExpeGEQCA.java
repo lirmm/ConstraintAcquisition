@@ -11,7 +11,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_Heuristic;
-import fr.lirmm.coconut.acquisition.core.learner.ACQ_Mode;
+import fr.lirmm.coconut.acquisition.core.learner.ACQ_Algorithm;
 import fr.lirmm.coconut.acquisition.core.parallel.ACQ_Partition;
 
 
@@ -25,7 +25,7 @@ public class ExpeGEQCA {
 	private static boolean normalizedCSP;
 	private static boolean shuffle;
 	private static ACQ_Partition partition;
-	private static ACQ_Mode mode;
+	private static ACQ_Algorithm mode;
 	private static int nb_threads;
 	private static String instance;
 	private static String vls;
@@ -56,7 +56,7 @@ public class ExpeGEQCA {
 		// defaults options
 		exp="tasks10_0.08_1";
 
-		mode = ACQ_Mode.LQCN;
+		mode = ACQ_Algorithm.LQCN;
 		timeout = 50000; // five seconds
 		sheuristic = ACQ_SelectionHeuristics.Lex;
 		verbose = false;
@@ -213,13 +213,13 @@ public class ExpeGEQCA {
 		return null;
 	}
 
-	public static ACQ_Mode getMode(String name) {
+	public static ACQ_Algorithm getMode(String name) {
 
 		switch (name) {
 		case "lqcn":
-			return ACQ_Mode.LQCN;
+			return ACQ_Algorithm.LQCN;
 		case "geqca":
-			return ACQ_Mode.GEQCA;
+			return ACQ_Algorithm.GEQCA;
 	
 		default: {
 			System.err.println("Bad mode parameter: " + name);

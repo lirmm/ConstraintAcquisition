@@ -39,8 +39,8 @@ public class Contradiction {
 //		assert(unit.isNeg());
 //	}
 	
-	public Clause toClause(ConstraintMapping mapping) {
-		Clause result = new Clause();
+	public ACQ_Clause toClause(ConstraintMapping mapping) {
+		ACQ_Clause result = new ACQ_Clause();
 		for(ACQ_IConstraint c : net.getConstraints()) {
 			Unit unit = mapping.get(c).clone();
 			unit.setNeg();

@@ -4,19 +4,19 @@ import fr.lirmm.coconut.acquisition.core.learner.ACQ_Scope;
 import fr.lirmm.coconut.acquisition.core.tools.Chrono;
 
 public class ContradictionSet {
-	CNF cnf;
+	ACQ_CNF cnf;
 	ConstraintFactory factory;
 	ACQ_Scope scope;
 	ConstraintMapping mapping;
 	
 	public ContradictionSet(ConstraintFactory factory, ACQ_Scope scope, ConstraintMapping mapping) {
-		this.cnf = new CNF();
+		this.cnf = new ACQ_CNF();
 		this.factory = factory;
 		this.scope = scope;
 		this.mapping = mapping;
 	}
 	
-	public CNF toCNF() {
+	public ACQ_CNF toCNF() {
 		return cnf;
 	}
 	

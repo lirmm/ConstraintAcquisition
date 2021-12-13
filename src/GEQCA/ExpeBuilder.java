@@ -2,7 +2,7 @@ package GEQCA;
 
 import java.io.IOException;
 
-import fr.lirmm.coconut.acquisition.core.learner.ACQ_Mode;
+import fr.lirmm.coconut.acquisition.core.learner.ACQ_Algorithm;
 
 
 
@@ -14,7 +14,7 @@ public class ExpeBuilder {
 	private static boolean verbose;
 	protected static int nb_threads;
 	protected static long timeout;
-	private static ACQ_Mode mode;
+	private static ACQ_Algorithm mode;
 	protected int propagationchoice;
 	protected int deadline;
 
@@ -38,7 +38,7 @@ public class ExpeBuilder {
 
 	
 
-	public ExpeBuilder setMode(ACQ_Mode mode) {
+	public ExpeBuilder setMode(ACQ_Algorithm mode) {
 		this.mode = mode;
 		return this;
 	}

@@ -19,7 +19,7 @@ import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_Network;
 import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_ConstraintSolver;
 import fr.lirmm.coconut.acquisition.core.acqsolver.ValSelector;
 import fr.lirmm.coconut.acquisition.core.acqsolver.VarSelector;
-import fr.lirmm.coconut.acquisition.core.learner.ACQ_Mode;
+import fr.lirmm.coconut.acquisition.core.learner.ACQ_Algorithm;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 import fr.lirmm.coconut.acquisition.core.tools.FileManager;
 
@@ -32,7 +32,7 @@ public abstract class DefaultExperience implements IExperience {
 	public String instance = "1";
 	private int nTasks;
 
-	public static ACQ_Mode mode;
+	public static ACQ_Algorithm mode;
 	private long timeout = 5000;
 	private boolean verbose;
 	
@@ -95,11 +95,11 @@ public abstract class DefaultExperience implements IExperience {
 		return heuristic1;
 	}
 
-	public ACQ_Mode getMode() {
+	public ACQ_Algorithm getMode() {
 		return mode;
 	}
 
-	public void setMode(ACQ_Mode mode) {
+	public void setMode(ACQ_Algorithm mode) {
 		this.mode = mode;
 	}
 
