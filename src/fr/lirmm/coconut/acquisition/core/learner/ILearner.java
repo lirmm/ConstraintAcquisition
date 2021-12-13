@@ -1,5 +1,6 @@
 package fr.lirmm.coconut.acquisition.core.learner;
 
+import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_IConstraint;
 
 public interface ILearner {
 	/**
@@ -18,6 +19,9 @@ public interface ILearner {
 	public boolean ask_query(ACQ_Query findC_example);
 
 	public void non_asked_query(ACQ_Query query);
+
+
+	public boolean ask(ACQ_IConstraint e);
 	
 
 

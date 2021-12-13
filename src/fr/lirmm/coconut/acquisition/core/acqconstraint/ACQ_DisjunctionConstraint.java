@@ -10,11 +10,14 @@ import org.chocosolver.solver.variables.IntVar;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintFactory.ConstraintSet;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 
-public class ACQ_DisjunctionConstraint extends ACQ_MetaConstraint {
 
-	public ACQ_DisjunctionConstraint(ConstraintFactory constraintFactory, ACQ_IConstraint c1, ACQ_IConstraint c2) {
+public class ACQ_DisjunctionConstraint extends ACQ_MetaConstraint{
 
-		super(constraintFactory, "disjunction", c1, c2);
+
+
+	public ACQ_DisjunctionConstraint(ConstraintFactory constraintFactory,ACQ_IConstraint c1, ACQ_IConstraint c2) {
+
+		super(constraintFactory,"disjunction", c1, c2);
 
 	}
 
@@ -23,21 +26,22 @@ public class ACQ_DisjunctionConstraint extends ACQ_MetaConstraint {
 		super("disjunction", set);
 
 	}
-
 	@Override
 	public ACQ_IConstraint getNegation() {
 		if (this.constraintSet.size() == 2) {
 			ACQ_IConstraint c0 = this.constraintSet.get_Constraint(0).getNegation();
 			ACQ_IConstraint c1 = this.constraintSet.get_Constraint(1).getNegation();
 			return new ACQ_ConjunctionConstraint(this.constraintFactory, c0, c1);
-		} else {
-			
-			  ConstraintSet set = constraintFactory.createSet(); for (int i = 0; i <
-			  this.constraintSet.size(); i++) {
-			  set.add(this.constraintSet.get_Constraint(i).getNegation()); } assert
-			  set.size() > 1 : "Disjunction constraint cannot contain one constraint only";
-			  return new ACQ_ConjunctionConstraint(set);
-			 
+		}
+		else {
+			assert false : "TODO";
+		//	return new ACQ_ConjunctionConstraint(this.constraintSet);
+			ConstraintSet set = constraintFactory.createSet();
+			for (int i = 0; i < this.constraintSet.size(); i++) {
+				set.add(this.constraintSet.get_Constraint(i).getNegation());
+			}
+			assert set.size() > 1 : "Disjunction constraint cannot contain one constraint only";
+			return new ACQ_ConjunctionConstraint(set);
 		}
 	}
 
@@ -46,54 +50,67 @@ public class ACQ_DisjunctionConstraint extends ACQ_MetaConstraint {
 
 		BoolVar[] reifyArray = model.boolVarArray(constraintSet.size());
 
-		int i = 0;
-		for (ACQ_IConstraint c : constraintSet) {
+		int i=0;
+		for(ACQ_IConstraint c: constraintSet)
+		{
 			c.toReifiedChoco(model, reifyArray[i], intVars);
 			i++;
 		}
 
-		return new Constraint[] { model.sum(reifyArray, ">", 0) };
+		return new Constraint[]{model.sum(reifyArray, ">", 0)};
 
 	}
 
 	@Override
 	/****
-	 * b <=> C1 and C2 : C1 <=> b1 C2 <=> b2 b=b1*b2
+	 * b <=> C1 or C2 :
+	 * C1 <=> b1
+	 * C2 <=> b2
+	 * b=b1+b2
 	 */
 	public void toReifiedChoco(Model model, BoolVar b, IntVar... intVars) {
 		BoolVar[] reifyArray = model.boolVarArray(constraintSet.size());
 
-		int i = 0;
-		for (ACQ_IConstraint c : constraintSet) {
+		int i=0;
+		for(ACQ_IConstraint c: constraintSet)
+		{
 			c.toReifiedChoco(model, reifyArray[i], intVars);
 			i++;
 		}
 
 		model.max(b, reifyArray).post();
-		// model.arithm(reifyArray[0], "*", reifyArray[1], "=", b).post();
+		//	model.arithm(reifyArray[0], "*", reifyArray[1], "=", b).post();
 
 	}
 
 	@Override
 	public boolean check(ACQ_Query query) {
-		for (ACQ_IConstraint c : constraintSet) {
+		for(ACQ_IConstraint c: constraintSet) {
+			if(c  instanceof TemporalConstraint || c instanceof OverlapConstraint) {
+				if(((ACQ_Constraint)c).check(query))
+					return true;
+			}else {
 			int value[] = c.getProjection(query);
-			if (((ACQ_Constraint) c).check(value))
+			if(((ACQ_Constraint) c).check(value))
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean check(int... value) {
+
+
+		for(ACQ_IConstraint c: constraintSet) {
+			//System.out.print(((ACQ_Constraint) c).check(value));
+			if(((ACQ_Constraint) c).check(value))
 				return true;
 		}
 		return false;
 	}
-
-	@Override
-	public boolean check(int... value) {
-
-		for (ACQ_IConstraint c : constraintSet)
-
-			if (((ACQ_Constraint) c).check(value))
-				return true;
-
-		return false;
-	}
+	
+	
 
 	public int getNbCsts() {
 
@@ -111,7 +128,7 @@ public class ACQ_DisjunctionConstraint extends ACQ_MetaConstraint {
 		}
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -121,19 +138,19 @@ public class ACQ_DisjunctionConstraint extends ACQ_MetaConstraint {
 		if (getClass() != obj.getClass())
 			return false;
 		ACQ_DisjunctionConstraint other = (ACQ_DisjunctionConstraint) obj;
-
+		
 		if (this.constraintSet.size() != other.constraintSet.size())
 			return false;
-		for (int i = 0; i < this.constraintSet.size(); i++) {
+		for(int i = 0; i < this.constraintSet.size(); i++) {
 			if (!this.constraintSet.get_Constraint(i).equals(other.constraintSet.get_Constraint(i)))
 				return false;
 		}
-
-		if (!Arrays.equals(this.getVariables(), other.getVariables()))
+		
+		if(!Arrays.equals(this.getVariables(), other.getVariables()))
 			return false;
 		return true;
 	}
-
+	
 	boolean contains(ACQ_IConstraint constr) {
 		for (ACQ_IConstraint subconstr : constraintSet) {
 			if (constr.equals(subconstr))

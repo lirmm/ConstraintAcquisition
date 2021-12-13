@@ -2,35 +2,28 @@ package fr.lirmm.coconut.acquisition.core.tools;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Random;
 
-import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_Constraint;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_IConstraint;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_Language;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_Network;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.BinaryArithmetic;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintFactory;
-import fr.lirmm.coconut.acquisition.core.acqconstraint.Operator;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintFactory.ConstraintSet;
+import fr.lirmm.coconut.acquisition.core.acqconstraint.Operator;
 import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_ChocoSolver;
-import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_ConstraintSolver;
 import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_IDomain;
 import fr.lirmm.coconut.acquisition.core.acqsolver.ValSelector;
 import fr.lirmm.coconut.acquisition.core.acqsolver.VarSelector;
 import fr.lirmm.coconut.acquisition.core.combinatorial.AllPermutationIterator;
 import fr.lirmm.coconut.acquisition.core.combinatorial.CombinationIterator;
-import fr.lirmm.coconut.acquisition.core.learner.ACQ_Bias;
-import fr.lirmm.coconut.acquisition.core.learner.ACQ_Learner;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Scope;
-import fr.lirmm.coconut.acquisition.core.workspace.DefaultExperience;
 
 public class ExpeGenerator {
 
@@ -46,7 +39,7 @@ public class ExpeGenerator {
 	public static void main(String args[]) throws IOException {
 
 		//new ExpeGenerator().random(50, 122, 10);
-		ExpeGenerator.Scheduling("instance00");
+		ExpeGenerator.Scheduling("schedulingpack007");
 
 		//ExpeGenerator.latinBench(10);
 
@@ -54,7 +47,7 @@ public class ExpeGenerator {
 		//ExpeGenerator.sudokuBench(9);
 		//ExpeGenerator.queensBench(8);
 		//ExpeGenerator.queensBench(30);
-		ExpeGenerator.golombBench(4);
+		//ExpeGenerator.golombBench(8);
 		//ExpeGenerator.jsudokuBench();
 
 	}
@@ -342,13 +335,13 @@ public class ExpeGenerator {
 			FileWriter myWriter = new FileWriter(myObj);
 
 			// row checker
-			for (int i = 0; i < n-1; i++)
+			for (int i = 0; i < n; i++)
 				myWriter.write("LessXY " + i + " " + (i + 1) + "\n");
 
-			for (int i = 0; i < n-1; i++) {
-				for (int j = 0; j < n-1; j++) {
-					for (int k = 0; k < n-1; k++) {
-						for (int l = 0; l < n-1; l++) {
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					for (int k = 0; k < n; k++) {
+						for (int l = 0; l < n; l++) {
 							if (i > j && k > l && i > k)
 								myWriter.write("DistDiffXYZT " + i + " " + j + " " + k + " " + l + "\n");
 
@@ -357,9 +350,9 @@ public class ExpeGenerator {
 				}
 			}
 
-			for (int i = 0; i < n-1; i++) {
-				for (int j = 0; j < n-1; j++) {
-					for (int k = 0; k < n-1; k++) {
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					for (int k = 0; k < n; k++) {
 						if (i > j && j > k)
 							myWriter.write("DistDiffXYZ " + i + " " + j + " " + k + "\n");
 
@@ -554,7 +547,7 @@ public class ExpeGenerator {
 	public static void Scheduling(String instance) throws NumberFormatException, IOException {
 		File directory = new File("benchmarks/scheduling/rcpsp/"+instance+".data");
 
-		ParseScheduling(directory.getName());
+		ParseScheduling(directory.getAbsolutePath());
 		try {
 			File myObj = new File("benchmarks/scheduling/rcpsp/"+instance+".target");
 			FileWriter myWriter = new FileWriter(myObj);
@@ -584,6 +577,7 @@ public class ExpeGenerator {
 		precedencies = new HashMap<Integer, ArrayList<Integer>>();
 		
 		//Get Instance
+		
 		BufferedReader reader = new BufferedReader(new FileReader(instance));
 		String line;
 		String str;

@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import GEQCA.ACQ_Utils;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
-import fr.lirmm.coconut.acquisition.core.workspace.ACQ_WS;
+
 
 /**
  * This class acts as a constraint repository. It register constraints and
@@ -16,6 +17,7 @@ import fr.lirmm.coconut.acquisition.core.workspace.ACQ_WS;
  * BitSet logical operators
  * 
  *
+ * @author agutierr
  */
 public class ConstraintFactory {
 	/*
@@ -28,8 +30,8 @@ public class ConstraintFactory {
 	}
 
 	/*
-	 * Each constraint is associated to an integer constraint .toString() is used as
-	 * identifier TODO a ACQ_IConstraint witch deliver an ID string ?
+	 * Each constraint is associated to an integer constraint .toString() is
+	 * used as identifier TODO a ACQ_IConstraint witch deliver an ID string ?
 	 */
 	public synchronized int registerConstraint(ACQ_IConstraint cst) {
 		Integer id = constraintsIndex.get(cst.toString());
@@ -99,7 +101,8 @@ public class ConstraintFactory {
 		/**
 		 * Returns the set of constraints violated by query_bgd
 		 * 
-		 * @param query_bgd Positive or negative example
+		 * @param query_bgd
+		 *            Positive or negative example
 		 * @return set of constraints violated by query_bgd
 		 */
 		public ConstraintSet getKappa(ACQ_Query query_bgd) {
@@ -115,13 +118,13 @@ public class ConstraintFactory {
 		}
 
 		public int[] getVariables() {
-			BitSet bs = new BitSet();
+			BitSet bs=new BitSet();
 			for (ACQ_IConstraint cst : this)
-				for (int numvar : cst.getVariables())
+				for(int numvar:cst.getVariables())
 					bs.set(numvar);
-			return ACQ_WS.bitSet2Int(bs);
+			return ACQ_Utils.bitSet2Int(bs);
 		}
-
+ 
 		public boolean check(ACQ_MetaConstraint candidate) {
 
 			for (ACQ_IConstraint cst : this)
@@ -135,7 +138,8 @@ public class ConstraintFactory {
 		/**
 		 * Add a constraint to this set of constraints
 		 * 
-		 * @param cst constraint
+		 * @param cst
+		 *            constraint
 		 */
 		public void add(ACQ_IConstraint cst) {
 			int id = getConstraintId(cst);
@@ -145,7 +149,8 @@ public class ConstraintFactory {
 		/**
 		 * Remove a constraint from this set of constraint
 		 * 
-		 * @param cst constraint
+		 * @param cst
+		 *            constraint
 		 * @return true if the constraint has been successfully removed
 		 */
 		public void remove(ACQ_IConstraint cst) {
@@ -163,7 +168,7 @@ public class ConstraintFactory {
 		}
 
 		public ACQ_IConstraint get_Constraint(int id) {
-			BitSet tmp = (BitSet) this.constraintSet.clone();
+			BitSet tmp = (BitSet)this.constraintSet.clone();
 			for (int i = 0; i < id; i++) {
 				int nbs = tmp.nextSetBit(0);
 				tmp.clear(nbs);
@@ -171,17 +176,19 @@ public class ConstraintFactory {
 			int realid = tmp.nextSetBit(0);
 			return constraintArray.get(realid);
 		}
-
+		
 		/**
 		 * <p>
-		 * Retains only the elements in this set that are contained in the specified set
-		 * (optional operation). In other words, removes from this set all of its
-		 * elements that are not contained in the specified set. If the specified
-		 * collection is also a set, this operation effectively modifies this set so
-		 * that its value is the intersection of the two sets.
+		 * Retains only the elements in this set that are contained in the
+		 * specified set (optional operation). In other words, removes from this
+		 * set all of its elements that are not contained in the specified set.
+		 * If the specified collection is also a set, this operation effectively
+		 * modifies this set so that its value is the intersection of the two
+		 * sets.
 		 * </p>
 		 * 
-		 * @param other_set set containing elements to be retained in this set
+		 * @param other_set
+		 *            set containing elements to be retained in this set
 		 */
 		public void retainAll(ConstraintSet other_set) {
 			constraintSet.and(other_set.constraintSet);
@@ -200,9 +207,11 @@ public class ConstraintFactory {
 		 * Remove from this set of constraints all constraints contained in the
 		 * specified set
 		 * 
-		 * @param temp_kappa set of constraints to remove
+		 * @param temp_kappa
+		 *            set of constraints to remove
 		 */
 		public void removeAll(ConstraintSet temp_kappa) {
+			
 			constraintSet.andNot(temp_kappa.constraintSet);
 		}
 
@@ -219,42 +228,46 @@ public class ConstraintFactory {
 		public String toString() {
 			return "ConstraintSet [constraints=" + constraintSet + "]";
 		}
-
+		
+		
 		public String toString2() {
 			return "ConstraintSet [constraints=" + new ACQ_Network(new ConstraintFactory(), this) + "]";
 		}
+		
 
 		public ConstraintSet getNextLevelCandidates(int level) {
 
-			ConstraintSet newLevel = createSet();
+			ConstraintSet newLevel= createSet();
 
-			if (level == 1) {
-				for (ACQ_IConstraint cst : this) {
-					if (!(cst instanceof ACQ_MetaConstraint))
+
+			if(level==1) {
+				for(ACQ_IConstraint cst: this) {
+					if(!(cst instanceof ACQ_MetaConstraint))
 						newLevel.add(cst);
 				}
 
 				return newLevel;
 			}
-			for (ACQ_IConstraint cst : this) {
-				if (cst instanceof ACQ_ConjunctionConstraint)
-					if (((ACQ_ConjunctionConstraint) cst).getNbCsts() == level)
+			for(ACQ_IConstraint cst: this) {
+				if(cst instanceof ACQ_ConjunctionConstraint)
+					if(((ACQ_ConjunctionConstraint) cst).getNbCsts()==level)
 						newLevel.add(cst);
 			}
 
 			return newLevel;
 		}
-
+		
 		public int get_levels() {
 
-			int max_level = 1;
+			int max_level=1;
 
-			for (ACQ_IConstraint cst : this)
+			for(ACQ_IConstraint cst: this)
 
-				if (cst instanceof ACQ_ConjunctionConstraint)
+				if(cst instanceof ACQ_ConjunctionConstraint) 
 
-					max_level = (max_level > ((ACQ_ConjunctionConstraint) cst).getNbCsts()) ? max_level
-							: ((ACQ_ConjunctionConstraint) cst).getNbCsts();
+					max_level= (max_level> ((ACQ_ConjunctionConstraint) cst).getNbCsts()) ?
+							max_level : ((ACQ_ConjunctionConstraint) cst).getNbCsts();
+
 
 			return max_level;
 		}

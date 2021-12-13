@@ -1,15 +1,18 @@
 package fr.lirmm.coconut.acquisition.core.tools;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.BitSet;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -17,17 +20,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_Network;
-import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintFactory;
-import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintFactory.ConstraintSet;
-import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_ChocoSolver;
-import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_ConstraintSolver;
-import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_IDomain;
-import fr.lirmm.coconut.acquisition.core.learner.ACQ_Bias;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Learner;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
-import fr.lirmm.coconut.acquisition.core.learner.ACQ_Scope;
-import fr.lirmm.coconut.acquisition.core.tools.StatManager;
 
 public class FileManager {
 
@@ -150,18 +144,7 @@ public class FileManager {
 
 	public static void printFile(Object something, String file_name) {
 
-		
-		String directoryName = getExpDir() + "/logFiles/";
-		
-	    File directory = new File(directoryName);
-		File file = new File(directoryName + file_name + ".log");
-	    
-	    if (! directory.exists()){
-	        directory.mkdir();
-	        // If you require it to make the entire directory path including parents,
-	        // use directory.mkdirs(); here instead.
-	    }
-
+		File file = new File(getExpDir() + "/logFiles/" + file_name + ".csv");
 		try {
 
 			// check whether the file is existed or not
@@ -185,51 +168,7 @@ public class FileManager {
 		}
 
 	}
-	public static void printResults(Object something, String file_name) {
 
-		
-	String directoryName = getExpDir() + "/results/";
-		
-	    File directory = new File(directoryName);
-		File file = new File(directoryName + file_name);
-	    
-	    if (! directory.exists()){
-	        directory.mkdir();
-	        // If you require it to make the entire directory path including parents,
-	        // use directory.mkdirs(); here instead.
-	    }
-
-		
-		try {
-
-			// check whether the file is existed or not
-			if (!file.exists()) {
-
-				// create a new file if the file is not existed
-				file.createNewFile();
-				if(file_name.contains(".results")) {
-				BufferedWriter writer1 = new BufferedWriter(new FileWriter(file));
-				writer1.append("Date \t - \t CL size \t RelativeAcquisitionRate \t AbsoluteAcquisitionRate  \t ConvergenceRate \t #Queries \t (#Queries/CLsize) \t #MembershipQueries \t Query size \t Acquisition time \t Running Time \t "
-						+ "Max Waiting Time \t - \t #NonAskedQueries \t BiasInit Size \t Bias Final Size \t VRS Heuristic \t QueryGeneration Heuristic" + "\n");
-				
-				writer1.close();}
-			}
-			
-
-			// new a writer and point the writer to the file
-			BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-			writer.append(something.toString() + "\n");
-
-			// writer the content to the file
-
-			// always remember to close the writer
-			writer.close();
-			writer = null;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
 	public static String getExpDir() {
 
 		return System.getProperty("user.dir");
@@ -276,4 +215,179 @@ public class FileManager {
 			}
 		};
 	}
+
+	public static HashMap<String, String> parseCompTable() {
+		HashMap<String, String> mapping = new HashMap<String, String>();
+		try {
+		BufferedReader csvReader = new BufferedReader(new FileReader("CompositionTableAllen.csv"));
+		String row;
+			int i=0;
+			String[] header= new String[13];
+			while ((row = csvReader.readLine()) != null) {
+			    String[] data = row.split("\t");
+			    
+				if(i==0) {
+					header=Arrays.copyOfRange(data, 1, data.length);
+					i++;
+					continue;}
+				for(int j = 0 ; j<header.length;j++ ) {
+					ArrayList<String>result=new ArrayList<String>();
+					mapping.put(data[0]+" - "+header[j],data[j+1] );
+
+					
+				}
+			    // do something with the data
+			}
+		
+		csvReader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mapping;
+	}
+	public static void parseSchedulingInstance(String instance,int nResource,int UB,int nTasks,int[] capacities,int[] durations,int[][] requirements,HashMap<Integer, ArrayList<Integer>> precedencies ) throws NumberFormatException, IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(instance + ".dzn"));
+		String line;
+		String str;
+
+		while (((line = reader.readLine()) != null)) {
+			if (line.isEmpty() == true) {
+				continue;
+			}
+
+			// split the line according to spaces
+			String[] lineSplited = line.split(" ");
+
+			if (line.startsWith("n_res")) {
+				nResource = Integer.parseInt(lineSplited[2].replace(";", ""));
+				continue;
+			}
+			if (line.startsWith("rc")) {
+				capacities = new int[nResource];
+				str = line;
+				str = str.replaceAll("\\D", " ");
+				String[] strSplited = str.split(" +");
+				for (int i = 1; i <= nResource; i++) {
+					capacities[i - 1] = Integer.parseInt(strSplited[i]);
+
+				}
+			}
+
+			if (line.startsWith("n_tasks")) {
+				nTasks = Integer.parseInt(lineSplited[2].replace(";", ""));
+				continue;
+			}
+
+			if (line.startsWith("d")) {
+				durations = new int[nTasks];
+				str = line;
+				str = str.replaceAll("\\D", " ");
+				String[] strSplited = str.split(" +");
+				for (int i = 1; i <= nTasks; i++) {
+					durations[i - 1] = Integer.parseInt(strSplited[i]);
+					UB = UB + durations[i - 1];
+				}
+				continue;
+			}
+
+			if (line.startsWith("rr")) {
+				requirements = new int[nResource][nTasks];
+				str = line;
+				str = str.replaceAll("\\D", " ");
+				String[] strSplited = str.split(" +");
+
+				for (int i = 1; i <= nTasks; i++) {
+					requirements[0][i - 1] = Integer.parseInt(strSplited[i]);
+
+				}
+
+			}
+			int i = 1;
+			while (!line.startsWith("rr") && line.contains("|")) {
+				str = line;
+				str = str.replaceAll("\\D", " ");
+				String[] strSplited = str.split(" +");
+				for (int j = 1; j <= nTasks; j++) {
+					requirements[i][j - 1] = Integer.parseInt(strSplited[j]);
+
+				}
+				line = reader.readLine();
+				i++;
+			}
+
+			if (line.startsWith("suc")) {
+				str = line;
+				str = str.replaceAll("\\D", " ");
+				ArrayList<Integer> task = new ArrayList<Integer>();
+				String[] strSplited = str.split(" +");
+				for (int j = 1; j < strSplited.length; j++) {
+					task.add(Integer.parseInt(strSplited[j]) - 1);
+				}
+				precedencies.put(0, task);
+			}
+			i = 1;
+			while (line != null && line.contains("{") && !line.startsWith("suc")) {
+				str = line;
+				str = str.replaceAll("\\D", " ");
+				String[] strSplited = str.split(" +");
+				ArrayList<Integer> task = new ArrayList<Integer>();
+				for (int j = 1; j < strSplited.length; j++) {
+					task.add(Integer.parseInt(strSplited[j]) - 1);
+				}
+				line = reader.readLine();
+				precedencies.put(i, task);
+				i++;
+			}
+		}
+		
+	}
+	
+	public static void printResults(Object something, String file_name) {
+
+		
+		String directoryName = getExpDir() + "/results/";
+			
+		    File directory = new File(directoryName);
+			File file = new File(directoryName + file_name);
+		    
+		    if (! directory.exists()){
+		        directory.mkdir();
+		        // If you require it to make the entire directory path including parents,
+		        // use directory.mkdirs(); here instead.
+		    }
+
+			
+			try {
+
+				// check whether the file is existed or not
+				if (!file.exists()) {
+
+					// create a new file if the file is not existed
+					file.createNewFile();
+					if(file_name.contains(".results")) {
+					BufferedWriter writer1 = new BufferedWriter(new FileWriter(file));
+					writer1.append("Date \t - \t CL size \t RelativeAcquisitionRate \t AbsoluteAcquisitionRate  \t ConvergenceRate \t #Queries \t (#Queries/CLsize) \t #MembershipQueries \t Query size \t Acquisition time \t Running Time \t "
+							+ "Max Waiting Time \t - \t #NonAskedQueries \t BiasInit Size \t Bias Final Size \t VRS Heuristic \t QueryGeneration Heuristic" + "\n");
+					
+					writer1.close();}
+				}
+				
+
+				// new a writer and point the writer to the file
+				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+				writer.append(something.toString() + "\n");
+
+				// writer the content to the file
+
+				// always remember to close the writer
+				writer.close();
+				writer = null;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+	
+	
 }

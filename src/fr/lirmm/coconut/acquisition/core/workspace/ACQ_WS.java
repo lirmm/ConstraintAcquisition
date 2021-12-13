@@ -2,8 +2,6 @@ package fr.lirmm.coconut.acquisition.core.workspace;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;

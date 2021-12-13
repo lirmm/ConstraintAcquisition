@@ -3,7 +3,7 @@ package fr.lirmm.coconut.acquisition.core.acqconstraint;
 public enum ACQ_Language {
 
 	Arith(new String[] { "EqualXY", "DifferentXY", "GreaterXY", "LessXY", "GreaterEqualXY", "LessEqualXY" }),
-	PArith(new String[] { "PEqualXY", "PDiffXY", "PGreaterXY", "PLessEqualXY" }),
+	PArith(new String[] { "EqualXY", "DifferentXY","PEqualXY", "PDiffXY", "PGreaterXY", "PLessEqualXY","POverlapXY","PNotOverlapXY","PDuringXY","PNotDuringXY","PExactXY","PNotExactXY","PFinishXY","PNotFinishXY" }),
 
 	ArithDist(new String[] { "EqualXY", "DifferentXY", "GreaterXY", "LessXY", "GreaterEqualXY", "LessEqualXY",
 			"DistDiffXYZ", "DistEqualXYZ", "DistGreaterXYZ", "DistLessEqualXYZ", "DistLessXYZ", "DistGreaterEqualXYZ",

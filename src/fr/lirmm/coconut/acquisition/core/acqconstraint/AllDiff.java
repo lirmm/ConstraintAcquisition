@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.lirmm.coconut.acquisition.core.acqconstraint;
 
 import java.util.Set;
@@ -9,6 +14,10 @@ import org.chocosolver.solver.variables.IntVar;
 
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 
+/**
+ *
+ * @author NADJIB
+ */
 
 public  class AllDiff extends ACQ_Constraint{
 

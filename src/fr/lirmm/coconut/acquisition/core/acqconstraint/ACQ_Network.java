@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.lirmm.coconut.acquisition.core.acqconstraint;
 
 import java.beans.PropertyChangeEvent;
@@ -17,6 +22,7 @@ import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintFactory.Constra
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Scope;
 import fr.lirmm.coconut.acquisition.core.tools.NameService;
+
 
 /**
  * Class used to represent constraint network.
@@ -134,7 +140,7 @@ public class ACQ_Network implements Iterable<ACQ_IConstraint> {
 	public int size() {
 		return constraints.size();
 	}
-
+	
 	public boolean isEmpty() {
 		return constraints == null || size() == 0;
 	}
@@ -188,11 +194,11 @@ public class ACQ_Network implements Iterable<ACQ_IConstraint> {
 		for (ACQ_IConstraint cst : constraintNet.constraints)
 			this.add(cst, force);
 	}
-
+	
 	public boolean contains(ACQ_IConstraint cst) {
 
 		for (ACQ_IConstraint cst_ : this.constraints)
-			if (cst_.equals(cst))
+			if(cst_.equals(cst))
 				return true;
 		return false;
 	}
@@ -267,6 +273,7 @@ public class ACQ_Network implements Iterable<ACQ_IConstraint> {
 
 	public void removeAll(ConstraintSet set) {
 		constraints.removeAll(set);
+	
 		for (ACQ_IConstraint cst : set)
 			pcs.firePropertyChange("REMOVE_CONSTRAINT", cst, null);
 		pcs.firePropertyChange("EMPTY_NETWORK", null, null);
@@ -359,22 +366,22 @@ public class ACQ_Network implements Iterable<ACQ_IConstraint> {
 			csts[index++] = cst;
 		return csts;
 	}
-
+	
 	public void clean() {
-		for (int i = size() - 1; i >= 0; i--) {
+		for (int i = size()-1; i >= 0; i--) {
 			ACQ_IConstraint constr = getConstraints().get_Constraint(i);
 			if (constr instanceof ACQ_DisjunctionConstraint) {
 				for (int j = 0; j < i; j++) {
-					if (((ACQ_DisjunctionConstraint) constr).contains(getConstraints().get_Constraint(j))) {
+					if (((ACQ_DisjunctionConstraint)constr).contains(getConstraints().get_Constraint(j))) {
 						this.remove(constr);
 						break;
 					}
 				}
-			} else if (constr instanceof ACQ_ConjunctionConstraint) {
-				this.remove(constr); // We don't need ConjunctionConstraints as we can express it as conjunction of
-										// Constraints
+			}
+			else if (constr instanceof ACQ_ConjunctionConstraint) {
+				this.remove(constr); // We don't need ConjunctionConstraints as we can express it as conjunction of Constraints
 			}
 		}
 	}
-
+	
 }

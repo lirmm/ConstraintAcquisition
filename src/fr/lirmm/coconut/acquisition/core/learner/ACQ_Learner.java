@@ -1,9 +1,17 @@
+/***************************************************************
+ * Learner class
+ * 
+ * Learner modelisation
+ * 
+ * @author LAZAAR
+ * @date 29-11-16
+ ***************************************************************/
 
 package fr.lirmm.coconut.acquisition.core.learner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_IConstraint;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_Network;
 
 /**
@@ -37,7 +45,11 @@ public class ACQ_Learner implements ILearner {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	public boolean ask(ACQ_IConstraint e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	/**
 	 * 
 	 * @param example
@@ -97,4 +109,8 @@ public class ACQ_Learner implements ILearner {
 	public ACQ_Network buildTargetNetwork() {
 		return null;
 	}
+
+	
+
+
 }

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.lirmm.coconut.acquisition.core.acqconstraint;
 
 import org.chocosolver.solver.Model;
@@ -84,8 +89,21 @@ public interface ACQ_IConstraint /*extends Comparable<ACQ_IConstraint>*/ {
     public IntVar[] getVariables(IntVar[] fullVarSet);
 
 	public int[] getVariables();
+	public ACQ_TemporalVariable[] getTemporalVariables();
+
 
 	void setName(String name);
 
 	public String getNegName();
+
+	public int[] getExactProjection(ACQ_Query e);
+
+	ACQ_TemporalVariable[] getProjectionTempVariables(ACQ_Query query);
+
+	ACQ_IConstraint getInverse();
+
+	ACQ_Scope getTemporalScope();
+
+	boolean isInverse();
+
 }

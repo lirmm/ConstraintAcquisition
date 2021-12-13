@@ -1,3 +1,6 @@
+/**
+ *
+ */
 package fr.lirmm.coconut.acquisition.core.learner;
 
 import java.util.Arrays;
@@ -7,6 +10,7 @@ import java.util.Iterator;
  * A query is a potential solution that is submitted to the solver. It can be a positive or a negative example.
  * It contains a scope (the variables involved) and a set of values for these variables.
  * 
+ * @author LAZAAR
  *
  */
 public class ACQ_Query implements Cloneable {
@@ -26,7 +30,8 @@ public class ACQ_Query implements Cloneable {
 	 * Values for these variables
 	 */
 	public final int[] values;
-
+	public final int[] variables;
+	public final boolean inverse ;
 	/**
 	 * Constructor for a query from a scope and a set of values
 	 * 
@@ -38,6 +43,29 @@ public class ACQ_Query implements Cloneable {
 		this.isClassified = false;
 		this.scope = scope;
 		this.values = values;
+		this.variables=null;
+		this.inverse = false;
+
+	}
+	
+	public ACQ_Query(ACQ_Scope scope, int[] values,boolean inverse) {
+		assert scope.size() == values.length;
+		this.isClassified = false;
+		this.scope = scope;
+		this.values = values;
+		this.variables=null;
+		this.inverse=inverse;
+	}
+	
+	public ACQ_Query( ACQ_Scope scope,int[] variables, int[] values,boolean inverse) {
+		assert scope.size() == values.length;
+		this.isClassified = false;
+		this.scope = scope;
+		this.values = values;
+		this.variables=variables;
+		this.inverse = inverse;
+
+
 	}
 
 	/**
@@ -47,6 +75,9 @@ public class ACQ_Query implements Cloneable {
 		// TODO Auto-generated constructor stub
 		this.scope=ACQ_Scope.EMPTY;
 		this.values=null;
+		this.variables=null;
+		this.inverse = false;
+
 	}
 	/**
 	 * Returns the set of values of this query
@@ -105,7 +136,10 @@ public class ACQ_Query implements Cloneable {
 		}
 		return -1;
 	}
-
+	public int getValueAt(int numvar){
+		return values[numvar];
+		
+	}
 
 	public int[] getProjection(ACQ_Scope bgd) {
 		int[] proj = new int[bgd.size()];

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.lirmm.coconut.acquisition.core.learner;
 
 import java.util.ArrayList;
@@ -88,6 +93,7 @@ public final class ACQ_Scope implements Iterable<Integer> {
 		this(new BitSet());
 		for (int var : vars) {
 			variables.set(var);
+			
 		}
 	}
 
@@ -164,6 +170,14 @@ public final class ACQ_Scope implements Iterable<Integer> {
 		return variables.get(var);
 	}
 
+	public final int getElement(int var) {
+		if(getFirst()==var)
+			return 0;
+		else if (getSecond()==var)
+			return 1;
+			
+		return -1;
+	}
 	/**
 	 * Checks if the variables of the specified scope are all included in this scope
 	 * 

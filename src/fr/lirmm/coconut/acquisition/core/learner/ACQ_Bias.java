@@ -1,5 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.lirmm.coconut.acquisition.core.learner;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -111,12 +117,14 @@ public class ACQ_Bias {
 	}
 
 	public void reduce(ACQ_IConstraint cst) {
-		if (cst instanceof ACQ_ConjunctionConstraint) {
+		if (cst instanceof ACQ_ConjunctionConstraint ) {
 			for (ACQ_IConstraint c : ((ACQ_ConjunctionConstraint) cst).constraintSet) {
 				network.remove(c);
 
 			}
-		} else {
+		}
+		
+		else {
 			network.remove(cst);
 		}
 	}
@@ -180,7 +188,44 @@ public class ACQ_Bias {
 		});
 		return new ACQ_Network(network.getFactory(), varSet, projectedCSet);
 	}
-
+	
+	
+	public ACQ_Network getExactVariableProjection(final int[] varSet) {
+		// calcule l'ensemble des contraintes du biais dont les variables sont contenues
+		// dans varSet
+		final ConstraintSet projectedCSet = network.getFactory().createSet();
+		for(ACQ_IConstraint c : network) {
+			if(Arrays.equals(varSet,c.getVariables() ))
+				projectedCSet.add(c);
+		}
+		
+		return new ACQ_Network(network.getFactory(), projectedCSet.get_Constraint(0).getScope(), projectedCSet);
+	}
+	
+	
+	
+	public ACQ_Network getExactProjection(final int[] varSet) {
+		// calcule l'ensemble des contraintes du biais dont les variables sont contenues
+		// dans varSet
+		final ConstraintSet projectedCSet = network.getFactory().createSet();
+		network.forEach((x) -> {
+			if (varSet.equals(x.getScope())) {
+				projectedCSet.add(x);
+			}
+		});
+		return new ACQ_Network(network.getFactory(),projectedCSet.get_Constraint(0).getScope() , projectedCSet);
+	}
+	public ACQ_Network getExactProjection(final ACQ_Scope varSet,String name) {
+		// calcule l'ensemble des contraintes du biais dont les variables sont contenues
+		// dans varSet
+		final ConstraintSet projectedCSet = network.getFactory().createSet();
+		network.forEach((x) -> {
+			if (varSet.equals(x.getScope())&& x.getName().equals(name)) {
+				projectedCSet.add(x);
+			}
+		});
+		return new ACQ_Network(network.getFactory(), varSet, projectedCSet);
+	}
 	public ACQ_Network getProjection_Scopes(final List<ACQ_Scope> varSet) {
 		// calcule l'ensemble des contraintes du biais dont les variables sont contenues
 		// dans varSet
@@ -226,5 +271,27 @@ public class ACQ_Bias {
 		for (ACQ_IConstraint cst : this.getConstraints())
 			Language.add(cst.getName());
 		return Language;
+	}
+	
+	public boolean IsAllenLanguage() {
+		Set<String> Language = new HashSet();
+		Language.add("PrecedesXY");
+		Language.add("IsPrecededXY");
+		Language.add("MeetsXY");
+		Language.add("IsMetXY");
+		Language.add("OverlapsXY");
+		Language.add("IsOverlappedXY");
+		Language.add("StartsXY");
+		Language.add("IsStartedXY");
+		Language.add("DuringXY");
+		Language.add("ContainsXY");
+		Language.add("FinishXY");
+		Language.add("IsFinishedXY");
+		Language.add("ExactXY");
+		
+		for (ACQ_IConstraint cst : this.getConstraints())
+			if(Language.contains(cst.getName()))
+					return true;
+		return false;
 	}
 }

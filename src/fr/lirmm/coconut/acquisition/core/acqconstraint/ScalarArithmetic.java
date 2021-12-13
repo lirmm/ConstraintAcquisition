@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package fr.lirmm.coconut.acquisition.core.acqconstraint;
 
 import java.util.Arrays;
@@ -13,6 +17,7 @@ import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 /**
  * Constraint between n variables. For example : X - Y + Z =0 or 2X+Y-Z > 2
  * 
+ * @author Nassim
  */
 public class ScalarArithmetic extends ScalarConstraint {
 
@@ -112,8 +117,8 @@ public class ScalarArithmetic extends ScalarConstraint {
 			for (int j = 0; j < intVars.length; j++)
 				if (vars[i] == (intVars[j].getId()-1))
 					temp[i] = intVars[j];
-		Constraint c = model.scalar(temp, coeff, op1.toString(), cste);
-		return new Constraint[] {c  };
+		
+		return new Constraint[] { model.scalar(temp, coeff, op1.toString(), cste) };
 
 	}
 
@@ -227,6 +232,11 @@ public class ScalarArithmetic extends ScalarConstraint {
 	}
 
 	
+	@Override
+	public String toString() {
+		return this.getName() + " [ vars :: " + Arrays.toString(vars) + ", coeff=" + Arrays.toString(coeff) + ",  "
+				+ op1 + " " + cste + "]";
+	}
 
 	/**
 	 * Checks if the specified operator is an operation operator
