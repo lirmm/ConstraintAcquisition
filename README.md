@@ -13,9 +13,9 @@ If you want to use the source code, the pom.xml file of this project contains al
 
 ## USAGE
 
-To get available options:
+To get available options for geqca:
 ```shell
-java -jar acq-*.jar -h
+java -jar geqca-*.jar -h
 ```
 
 ## DEPENDENCIES
