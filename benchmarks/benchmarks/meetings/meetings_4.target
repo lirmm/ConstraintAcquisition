@@ -1,0 +1,6 @@
+AT_GT 0 2 2
+AT_GT 0 3 1
+AT_GT 2 3 1
+AT_GT 1 3 2
+AT_GT 0 1 1
+AT_GT 1 2 3

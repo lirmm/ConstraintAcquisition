@@ -34,7 +34,6 @@ import fr.lirmm.coconut.acquisition.core.combinatorial.CombinationIterator;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Learner;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 import fr.lirmm.coconut.acquisition.core.tools.Chrono;
-import fr.lirmm.coconut.acquisition.core.tools.FileManager;
 
 public class GEQCA {
 
@@ -52,6 +51,7 @@ public class GEQCA {
 	protected boolean log_constraints = true;
 	public int nPositives = 0;
 	public int nNegatives = 0;
+	public int langsize;
 	static List<Long> times = new ArrayList<Long>();
 	boolean propagate = false;
 	protected int nb_vars;
@@ -59,6 +59,7 @@ public class GEQCA {
 	protected Map<List<Integer>, List<ACQ_Relation>> learnedRelations;
 	protected int propagationchoice;
 	protected int deadline;
+	public String type;
 
 	String instance = "instance00";
 
@@ -73,15 +74,17 @@ public class GEQCA {
 	HashMap<Integer, ArrayList<Integer>> precedencies = new HashMap<Integer, ArrayList<Integer>>();
 
 	public GEQCA(ACQ_ConstraintSolver solver, HashMap<String, ArrayList<String>> bias,
-			HashMap<String, String> target, ACQ_Learner learner, int nb_vars, ACQ_SelectionHeuristics heuristic) {
+			HashMap<String, String> target, ACQ_Learner learner, int nb_vars, ACQ_SelectionHeuristics heuristic,String type) {
 
 		// NL: config part
 		this.sheuristic = heuristic;
 		this.solver = solver;
 		this.L = bias;
+		this.langsize=bias.values().iterator().next().size();
 		this.target = target;
 		this.learner = learner;
 		this.nb_vars = nb_vars;
+		this.type = type;
 
 	}
 
@@ -238,7 +241,7 @@ public class GEQCA {
 
 		default:
 			chrono.start("total_acq_time");
-			process_composition();
+			process_compositionPath();
 			chrono.stop("total_acq_time");
 			break;
 		}
@@ -520,6 +523,7 @@ public class GEQCA {
 			ArrayList<String> L_s = L.get(scope);
 			ArrayList<Long> relationtimes=relationsForPair(L_s, scope, V);
 			
+			if(relationtimes.size()>0)
 			relationtimes.set(0, relationtimes.get(0)+(t1-t));
 			
 			
@@ -551,7 +555,18 @@ public class GEQCA {
 		//System.out.println("Converage :: " + nocollapse);
 
 	}
+	private void PreProcess(List<int[]> variables) {
+		for(int[]vars : variables) {
+		String scope = vars[0] + "," + vars[1];
+		long t =0;
+		long t1 =0;
+		
+			t = System.currentTimeMillis();
+			Propagate(vars, scope);
+			t1= System.currentTimeMillis();
 
+		}
+	}
 	private void Propagate(int[] vars, String scope) {
 
 		// Remove by duration
@@ -1038,8 +1053,8 @@ public class GEQCA {
 		inverse.put("FinishXY", "IsFinishedXY");
 		inverse.put("IsFinishedXY", "FinishXY");
 		inverse.put("ExactXY", "ExactXY");
-		
-		HashMap<String, String> table = FileManager.parseCompTable();
+
+		HashMap<String, ArrayList<String>> table = FileManager.parseCompTable(type);
 
 		ArrayList<String> set = new ArrayList<String>();
 
@@ -1108,12 +1123,12 @@ public class GEQCA {
 			}
 		}
 
-		if (network1_.length == 13) {
+		if (network1_.length == langsize) {
 			for (String c : network1_)
 				set.add(c);
 			return set;
 		}
-		if (network2_.length == 13) {
+		if (network2_.length == langsize) {
 			for (String c : network2_)
 				set.add(c);
 			return set;
@@ -1242,9 +1257,12 @@ public class GEQCA {
 		return set;
 	}
 
-	private void ComputeComposition(String id, String id1, HashMap<String, String> table,
+	private void ComputeComposition(String id, String id1, HashMap<String, ArrayList<String>> table,
 			HashMap<String, String> mapping, HashMap<String, String> mapping1, String child, ArrayList<String> set) {
-		char[] result = table.get(mapping.get(id) + " - " + mapping.get(id1)).toCharArray();
+		
+		ArrayList<String> comp = table.get(mapping.get(id) + " - " + mapping.get(id1));
+		for(String r : comp) {
+		char[] result = r.toCharArray();
 		// System.out.println(mapping.get(id) + " - " + mapping.get(id1)+"::"+
 		// String.valueOf(result));
 		for (int i = 0; i < result.length; i++) {
@@ -1254,10 +1272,11 @@ public class GEQCA {
 			ACQ_IConstraint c = CstrFactory.getConstraint(cst);
 			if (!set.contains(c.getName()))
 				set.add(c.getName());
-			if (set.size() == 13)
+			if (set.size() == langsize)
 				return;
 		}
 
 	}
+		}
 
 }

@@ -1,0 +1,17 @@
+nbVars 180
+domainSize 1 475
+
+Gamma
+DuringXY
+ContainsXY
+ExactXY
+FinishXY
+IsFinishedXY
+MeetsXY
+IsMetXY
+OverlapsXY
+IsOverlappedXY
+PrecedesXY
+IsPrecededXY
+StartsXY
+IsStartedXY

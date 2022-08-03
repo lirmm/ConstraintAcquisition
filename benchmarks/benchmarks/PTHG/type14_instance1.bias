@@ -1,0 +1,10 @@
+nbVars 5
+domainSize 1 5
+
+Gamma
+EqualXY
+DifferentXY
+GreaterXY
+LessXY
+GreaterEqualXY
+LessEqualXY

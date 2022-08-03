@@ -12,7 +12,7 @@ import org.apache.commons.cli.ParseException;
 
 import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_Heuristic;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Algorithm;
-import fr.lirmm.coconut.acquisition.core.parallel.ACQ_Partition;
+
 
 
 public class ExpeGEQCA {
@@ -24,7 +24,6 @@ public class ExpeGEQCA {
 	private static ACQ_SelectionHeuristics sheuristic;
 	private static boolean normalizedCSP;
 	private static boolean shuffle;
-	private static ACQ_Partition partition;
 	private static ACQ_Algorithm mode;
 	private static int nb_threads;
 	private static String instance;
@@ -37,6 +36,7 @@ public class ExpeGEQCA {
 	private static int disjunctionlevel;
 	private static int propagationchoice;
 	private static int deadline;
+	private static String algebratype;
 
 	public static void main(String args[]) throws IOException, ParseException {
 		
@@ -63,6 +63,7 @@ public class ExpeGEQCA {
 		instance="10";
 		propagationchoice=0;
 		deadline=0;
+		algebratype="Allen";
 
 		///////////////////////
 
@@ -80,6 +81,7 @@ public class ExpeGEQCA {
 				.setInstance(exp)
 				.setPropagation(propagationchoice)
 				.setDeadline(deadline)
+				.setAlgebraType(algebratype)
 
 				.build();
 		//Launch Experience
@@ -93,14 +95,14 @@ public class ExpeGEQCA {
 		final Option helpFileOption = Option.builder("h").longOpt("help").desc("Display help message").build();
 
 		final Option expOption = Option.builder("e").longOpt("exp")
-				.desc("Experience: random / purdey / zebra / meetings / target / sudoku / jsudoku / latin / queens / tasks*_*_* / sch_*")
+				.desc("Experience: random / purdey / zebra / meetings / target / sudoku / jsudoku / latin / queens")
 				.hasArg(true).argName("experience").required(false).build();
 
 		final Option limitOption = Option.builder("t").longOpt("timeout").hasArg(true).argName("timeout in ms")
 				.desc("Set the timeout limit to the specified time").required(false).build();
 
 		final Option selectionheuristicOption = Option.builder("sh").longOpt("selectionheuristic").hasArg(true)
-				.argName("constraint selection heuristic").desc("Selection Heuristic : Lex / Random / Weighted").required(false).build();
+				.argName("constraint selection heuristic").desc("Selection Heuristic : Lex / Random / Weighted/Path").required(false).build();
 
 		
 		final Option propagationOption = Option.builder("prop").longOpt("prop").hasArg(true).argName("Propagation Mode")
@@ -110,11 +112,13 @@ public class ExpeGEQCA {
 
 		
 		final Option modeOption = Option.builder("m").longOpt("mode").hasArg(true).argName("LQCN or GEQCA")
-				.desc("mode: LQCN, GEQCA").required(false).build();
+				.desc("mode: LQCN, GEQCA,GEQCA_IQ").required(false).build();
 
 	
 		final Option instOption = Option.builder("i").longOpt("instance").hasArg(true).argName("instance")
 				.desc("instance, number of variables").required(false).build();
+		final Option algtypeOption = Option.builder("at").longOpt("algebra").hasArg(true).argName("algebra")
+				.desc("set algebra type ex : Allen, RCC-8...").required(false).build();
 
 		final Option verboseOption = Option.builder("v").longOpt("verbose").hasArg(false)
 				.desc("verbose mode").required(false).build();
@@ -135,6 +139,7 @@ public class ExpeGEQCA {
 		options.addOption(instOption);
 		options.addOption(VlsOption);
 		options.addOption(verboseOption);
+		options.addOption(algtypeOption);
 
 		return options;
 	}
@@ -174,6 +179,9 @@ public class ExpeGEQCA {
 		case "deadline":
 			deadline = Integer.parseInt(line.getOptionValue(option));
 			break;
+		case "algebra":
+			algebratype = line.getOptionValue(option);
+			break;
 		case "verbose":
 			verbose = true;
 			break;
@@ -187,31 +195,6 @@ public class ExpeGEQCA {
 
 	}
 
-	public static ACQ_Partition getPartition(String name) {
-
-		switch (name) {
-		case "rand":
-			return ACQ_Partition.RANDOM;
-		case "scope":
-			return ACQ_Partition.SCOPEBASED;
-		case "neigh":
-			return ACQ_Partition.NEIGHBORHOOD;
-		case "neg":
-			return ACQ_Partition.NEGATIONBASED;
-		case "rel":
-			return ACQ_Partition.RELATIONBASED;
-		case "relneg":
-			return ACQ_Partition.RELATION_NEGATIONBASED;
-		case "rule":
-			return ACQ_Partition.RULESBASED;
-		default: {
-			System.err.println("Bad partition parameter: " + name);
-			System.exit(2);
-		}
-
-		}
-		return null;
-	}
 
 	public static ACQ_Algorithm getMode(String name) {
 
@@ -220,6 +203,11 @@ public class ExpeGEQCA {
 			return ACQ_Algorithm.LQCN;
 		case "geqca":
 			return ACQ_Algorithm.GEQCA;
+		case "geqca_iq":
+			return ACQ_Algorithm.GEQCA_IQ;
+		
+		case "geqca_bk_iq":
+			return ACQ_Algorithm.GEQCA_BK_IQ;
 	
 		default: {
 			System.err.println("Bad mode parameter: " + name);
@@ -252,6 +240,8 @@ public class ExpeGEQCA {
 		switch (name) {
 		case "lex":
 			return ACQ_SelectionHeuristics.Lex;
+		case "pathw":
+			return ACQ_SelectionHeuristics.PathWeighted;
 		case "path":
 			return ACQ_SelectionHeuristics.Path;
 		case "random":

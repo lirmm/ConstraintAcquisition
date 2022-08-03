@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 import org.chocosolver.util.tools.StringUtils;
 import org.json.JSONObject;
 
+import GEQCA.FileManager;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_ConjunctionConstraint;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_IConstraint;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_Network;
@@ -40,7 +41,6 @@ import fr.lirmm.coconut.acquisition.core.parallel.ACQ_Partition;
 import fr.lirmm.coconut.acquisition.core.parallel.ACQ_QueryMessage;
 import fr.lirmm.coconut.acquisition.core.tools.Chrono;
 import fr.lirmm.coconut.acquisition.core.tools.Collective_Stats;
-import fr.lirmm.coconut.acquisition.core.tools.FileManager;
 import fr.lirmm.coconut.acquisition.core.tools.StatManager;
 import fr.lirmm.coconut.acquisition.core.tools.TimeManager;
 import fr.lirmm.coconut.acquisition.core.tools.TimeUnit;
@@ -217,10 +217,10 @@ public class ACQ_WS {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(dtf.format(now));
-		FileManager.printResults(acquisition.getLearnedNetwork(),
+		FileManager.printFile(acquisition.getLearnedNetwork(),
 				expe.getName() + "_" + dtf.format(now) + ".LearnedNetwork");
 
-		FileManager.printResults(input, expe.getName() + "_" + instance + "_" + dtf.format(now) + ".results");
+		FileManager.printFile(input, expe.getName() + "_" + instance + "_" + dtf.format(now) + ".results");
 
 		return stats;
 
@@ -529,7 +529,7 @@ public class ACQ_WS {
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH:mm:ss"); // 2020/04/17 16:15:43
 		Date date = new Date();
-		FileManager.printResults(learned_network, expe.getName() + dateFormat.format(date) + ".LearnedNetwork");
+		FileManager.printFile(learned_network, expe.getName() + dateFormat.format(date) + ".LearnedNetwork");
 
 		String input = (dateFormat.format(date) + "\t" + nb_threads + "\t" + learned_network.size() + "\t"
 				+ RelativeAcquisitionRate + "\t" + AbsoluteAcquisitionRate + "\t" + convergenceRate
@@ -542,7 +542,7 @@ public class ACQ_WS {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(dtf.format(now));
-		FileManager.printResults(input, expe.getName() + instance + "_" + dtf.format(now) + ".results");
+		FileManager.printFile(input, expe.getName() + instance + "_" + dtf.format(now) + ".results");
 
 	}
 
@@ -688,10 +688,10 @@ public class ACQ_WS {
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(dtf.format(now));
 
-		FileManager.printResults(learned_network, expe.getName() + "_" + dtf.format(now) + ".LearnedNetwork");
+		FileManager.printFile(learned_network, expe.getName() + "_" + dtf.format(now) + ".LearnedNetwork");
 
 		FileManager.printFile(bias, "bias");
-		FileManager.printResults(input, expe.getName() + instance + "_" + dtf.format(now) + ".results");
+		FileManager.printFile(input, expe.getName() + instance + "_" + dtf.format(now) + ".results");
 
 	}
 
@@ -959,10 +959,10 @@ public class ACQ_WS {
 
 			// System.out.println("Network :: " + learned_network);
 
-			FileManager.printResults(acquisition.getLearnedNetwork(),
+			FileManager.printFile(acquisition.getLearnedNetwork(),
 					expe.getName() + "_" + dtf.format(now) + ".LearnedNetwork");
 
-			FileManager.printResults(input, expe.getName() + "_" + instance + "_" + dtf.format(now) + ".results");
+			FileManager.printFile(input, expe.getName() + "_" + instance + "_" + dtf.format(now) + ".results");
 
 			if (result)
 				System.out.println("YES...Converged");
@@ -1176,7 +1176,7 @@ public class ACQ_WS {
 			}
 			if(acquisition.getLearnedNetwork()!=null) {
 
-			FileManager.printResults(acquisition.getLearnedNetwork(),
+			FileManager.printFile(acquisition.getLearnedNetwork(),
 					expe.getName() + "_" + dtf.format(now) + ".LearnedNetwork");
 			String input = dtf.format(now) + "\t" + 1 + "\t" + acquisition.getLearnedNetwork().size() + "\t"
 					+ RelativeAcquisitionRate + "\t" + AbsoluteAcquisitionRate + "\t" + convergenceRate + "\t"
@@ -1196,10 +1196,10 @@ public class ACQ_WS {
 
 			// System.out.println("Network :: " + learned_network);
 
-			FileManager.printResults(acquisition.getLearnedNetwork(),
+			FileManager.printFile(acquisition.getLearnedNetwork(),
 					expe.getName() + "_" + dtf.format(now) + ".LearnedNetwork");
 
-			FileManager.printResults(input, expe.getName() + "_" + instance + "_" + dtf.format(now) + ".results");
+			FileManager.printFile(input, expe.getName() + "_" + instance + "_" + dtf.format(now) + ".results");
 			}
 		}
 		return stats;
@@ -1438,7 +1438,7 @@ public class ACQ_WS {
 		ACQ_Query q = solver.solveA(acquisition.getLearnedNetwork());
 
 		q.classify(learner.ask(q));
-		FileManager.printResults(acquisition_.learned_network, expe.getName() + ".LearnedNetwork");
+		FileManager.printFile(acquisition_.learned_network, expe.getName() + ".LearnedNetwork");
 
 		FileManager.printFile(bias, "bias");
 
@@ -1463,7 +1463,7 @@ public class ACQ_WS {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(dtf.format(now));
-		FileManager.printResults(input, expe.getName() + instance + "_" + dtf.format(now) + ".results");
+		FileManager.printFile(input, expe.getName() + instance + "_" + dtf.format(now) + ".results");
 
 		return stats;
 	}

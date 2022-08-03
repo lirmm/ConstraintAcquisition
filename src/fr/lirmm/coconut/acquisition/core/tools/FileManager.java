@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Learner;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 
+
 public class FileManager {
 
 	/**
@@ -216,10 +217,10 @@ public class FileManager {
 		};
 	}
 
-	public static HashMap<String, String> parseCompTable() {
-		HashMap<String, String> mapping = new HashMap<String, String>();
+	public static HashMap<String, ArrayList<String>> parseCompTable(String type) {
+		HashMap<String, ArrayList<String>> mapping = new HashMap<String, ArrayList<String>>();
 		try {
-		BufferedReader csvReader = new BufferedReader(new FileReader("CompositionTableAllen.csv"));
+		BufferedReader csvReader = new BufferedReader(new FileReader("CompositionTable"+type+".csv"));
 		String row;
 			int i=0;
 			String[] header= new String[13];
@@ -232,9 +233,16 @@ public class FileManager {
 					continue;}
 				for(int j = 0 ; j<header.length;j++ ) {
 					ArrayList<String>result=new ArrayList<String>();
-					mapping.put(data[0]+" - "+header[j],data[j+1] );
 
-					
+					if(data[j+1].contains(",")) {
+						String[] values = data[j+1].split(",");
+						for(int l =0; l< values.length;l++	) {
+						result.add(values[l]);	
+						}
+					}else {
+						result.add(data[j+1]);
+					}
+					mapping.put(data[0]+" - "+header[j],result );
 				}
 			    // do something with the data
 			}
@@ -343,51 +351,7 @@ public class FileManager {
 		
 	}
 	
-	public static void printResults(Object something, String file_name) {
-
-		
-		String directoryName = getExpDir() + "/results/";
-			
-		    File directory = new File(directoryName);
-			File file = new File(directoryName + file_name);
-		    
-		    if (! directory.exists()){
-		        directory.mkdir();
-		        // If you require it to make the entire directory path including parents,
-		        // use directory.mkdirs(); here instead.
-		    }
-
-			
-			try {
-
-				// check whether the file is existed or not
-				if (!file.exists()) {
-
-					// create a new file if the file is not existed
-					file.createNewFile();
-					if(file_name.contains(".results")) {
-					BufferedWriter writer1 = new BufferedWriter(new FileWriter(file));
-					writer1.append("Date \t - \t CL size \t RelativeAcquisitionRate \t AbsoluteAcquisitionRate  \t ConvergenceRate \t #Queries \t (#Queries/CLsize) \t #MembershipQueries \t Query size \t Acquisition time \t Running Time \t "
-							+ "Max Waiting Time \t - \t #NonAskedQueries \t BiasInit Size \t Bias Final Size \t VRS Heuristic \t QueryGeneration Heuristic" + "\n");
-					
-					writer1.close();}
-				}
-				
-
-				// new a writer and point the writer to the file
-				BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
-				writer.append(something.toString() + "\n");
-
-				// writer the content to the file
-
-				// always remember to close the writer
-				writer.close();
-				writer = null;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
+	
 	
 	
 }

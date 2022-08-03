@@ -1,0 +1,300 @@
+IsMetXY IsPrecededXY 8 17
+IsMetXY OverlapsXY PrecedesXY 8 18
+IsPrecededXY 15 24
+IsMetXY OverlapsXY StartsXY 8 15
+IsMetXY IsPrecededXY OverlapsXY 15 23
+IsMetXY IsPrecededXY OverlapsXY 7 8
+IsMetXY IsPrecededXY 8 16
+IsMetXY PrecedesXY 15 22
+IsPrecededXY 7 9
+IsMetXY PrecedesXY 10 11
+IsMetXY IsOverlappedXY 8 19
+IsMetXY OverlapsXY PrecedesXY 10 12
+PrecedesXY 10 13
+IsPrecededXY 8 10
+IsMetXY OverlapsXY 8 13
+IsMetXY IsPrecededXY OverlapsXY 15 21
+IsPrecededXY 8 14
+IsMetXY OverlapsXY PrecedesXY StartsXY 15 20
+IsMetXY IsPrecededXY 8 11
+PrecedesXY 8 12
+PrecedesXY 10 14
+IsPrecededXY 21 24
+PrecedesXY 10 15
+IsMetXY IsPrecededXY OverlapsXY 21 23
+PrecedesXY 10 16
+PrecedesXY 21 22
+IsMetXY PrecedesXY 10 17
+PrecedesXY 10 18
+IsMetXY PrecedesXY 10 19
+PrecedesXY 10 20
+IsMetXY PrecedesXY 10 21
+IsMetXY PrecedesXY 10 22
+IsMetXY 10 23
+IsMetXY PrecedesXY 10 24
+IsMetXY PrecedesXY 3 17
+IsMetXY PrecedesXY 8 20
+IsMetXY IsPrecededXY OverlapsXY 3 16
+IsMetXY IsPrecededXY 8 21
+IsMetXY PrecedesXY 3 15
+IsMetXY IsPrecededXY OverlapsXY 3 14
+IsMetXY PrecedesXY 3 13
+IsMetXY IsPrecededXY 8 24
+PrecedesXY 3 12
+IsOverlappedXY 3 11
+FinishXY IsMetXY OverlapsXY PrecedesXY StartsXY 8 22
+IsPrecededXY 3 10
+IsMetXY IsPrecededXY 8 23
+PrecedesXY 3 20
+IsMetXY IsPrecededXY 6 7
+IsPrecededXY 6 8
+IsMetXY IsPrecededXY 6 9
+IsPrecededXY 3 24
+FinishXY IsMetXY IsPrecededXY OverlapsXY StartsXY 3 23
+PrecedesXY 3 22
+IsMetXY OverlapsXY PrecedesXY 3 21
+PrecedesXY 3 19
+IsMetXY OverlapsXY PrecedesXY 3 18
+IsMetXY OverlapsXY PrecedesXY 9 18
+IsMetXY OverlapsXY PrecedesXY 9 19
+IsMetXY IsPrecededXY 9 16
+PrecedesXY 9 17
+IsMetXY PrecedesXY 15 18
+IsMetXY IsPrecededXY 15 17
+IsMetXY IsPrecededXY 15 16
+IsPrecededXY 9 10
+IsMetXY IsPrecededXY 9 11
+IsMetXY IsPrecededXY 9 14
+PrecedesXY 9 15
+PrecedesXY 9 12
+IsMetXY PrecedesXY 9 13
+IsMetXY IsOverlappedXY 15 19
+IsPrecededXY 5 6
+IsMetXY IsPrecededXY 4 11
+IsMetXY IsPrecededXY OverlapsXY 5 7
+IsMetXY OverlapsXY 4 12
+IsMetXY IsPrecededXY 5 8
+IsMetXY IsPrecededXY OverlapsXY StartsXY 4 13
+IsPrecededXY 5 9
+IsMetXY IsPrecededXY 4 14
+IsPrecededXY 4 15
+IsMetXY IsPrecededXY 14 16
+IsMetXY IsPrecededXY OverlapsXY 4 16
+IsMetXY PrecedesXY 14 17
+IsPrecededXY 4 17
+IsMetXY PrecedesXY 4 18
+PrecedesXY 14 15
+PrecedesXY 9 21
+IsPrecededXY 19 23
+IsMetXY PrecedesXY 9 22
+IsMetXY PrecedesXY 19 22
+PrecedesXY 9 20
+IsPrecededXY 19 24
+IsPrecededXY 9 23
+IsMetXY IsPrecededXY 19 21
+IsPrecededXY 4 10
+IsPrecededXY 9 24
+IsMetXY PrecedesXY 19 20
+PrecedesXY 14 18
+PrecedesXY 14 19
+IsMetXY PrecedesXY 4 22
+IsMetXY IsPrecededXY 14 23
+IsPrecededXY 4 23
+PrecedesXY 14 24
+IsMetXY IsPrecededXY OverlapsXY 4 24
+PrecedesXY 14 21
+IsMetXY PrecedesXY 14 22
+IsPrecededXY 20 24
+IsMetXY PrecedesXY 14 20
+IsMetXY OverlapsXY 4 20
+IsMetXY IsPrecededXY 4 21
+IsMetXY IsPrecededXY OverlapsXY 4 19
+IsPrecededXY 20 23
+IsMetXY OverlapsXY PrecedesXY 20 22
+IsMetXY IsPrecededXY 20 21
+IsMetXY StartsXY 4 5
+IsPrecededXY 4 6
+IsMetXY IsPrecededXY 4 7
+IsPrecededXY 4 8
+PrecedesXY 13 22
+IsMetXY IsPrecededXY 4 9
+IsMetXY IsPrecededXY 13 23
+IsMetXY PrecedesXY 13 20
+IsMetXY IsPrecededXY OverlapsXY 13 21
+IsMetXY IsPrecededXY 13 24
+IsMetXY OverlapsXY StartsXY 5 12
+IsPrecededXY 5 13
+IsPrecededXY 5 14
+IsPrecededXY 5 15
+IsMetXY IsPrecededXY OverlapsXY 5 16
+IsPrecededXY 5 17
+IsMetXY PrecedesXY 5 18
+IsMetXY IsPrecededXY 5 19
+IsPrecededXY 5 10
+IsMetXY IsPrecededXY 5 11
+IsMetXY PrecedesXY 3 4
+PrecedesXY 3 5
+IsMetXY OverlapsXY PrecedesXY 3 6
+IsMetXY OverlapsXY PrecedesXY 3 7
+PrecedesXY 3 8
+IsMetXY OverlapsXY 3 9
+IsMetXY IsPrecededXY OverlapsXY StartsXY 5 23
+IsPrecededXY 5 24
+IsMetXY IsPrecededXY 18 19
+PrecedesXY 0 13
+IsMetXY OverlapsXY PrecedesXY 0 14
+IsMetXY OverlapsXY PrecedesXY 0 11
+PrecedesXY 0 12
+PrecedesXY 0 10
+IsMetXY OverlapsXY StartsXY 5 20
+IsMetXY IsPrecededXY OverlapsXY 5 21
+IsMetXY PrecedesXY 5 22
+IsOverlappedXY 13 15
+IsPrecededXY 13 16
+IsPrecededXY 13 14
+IsMetXY OverlapsXY PrecedesXY 0 24
+IsMetXY IsPrecededXY OverlapsXY 18 21
+IsMetXY IsPrecededXY 18 22
+IsMetXY OverlapsXY PrecedesXY StartsXY 0 22
+IsPrecededXY 18 23
+OverlapsXY 0 23
+IsMetXY IsPrecededXY OverlapsXY 18 24
+PrecedesXY 0 20
+IsMetXY PrecedesXY 0 21
+IsMetXY IsPrecededXY 18 20
+IsMetXY OverlapsXY PrecedesXY 0 19
+PrecedesXY 0 17
+IsMetXY PrecedesXY 0 18
+PrecedesXY 0 15
+IsMetXY PrecedesXY 0 16
+IsMetXY IsOverlappedXY OverlapsXY StartsXY 13 19
+IsMetXY IsPrecededXY OverlapsXY 2 3
+IsMetXY PrecedesXY 2 4
+IsMetXY IsPrecededXY OverlapsXY 13 17
+IsMetXY OverlapsXY PrecedesXY 2 5
+PrecedesXY 13 18
+OverlapsXY 2 6
+IsPrecededXY 2 7
+IsMetXY IsPrecededXY OverlapsXY StartsXY 2 8
+IsMetXY IsPrecededXY 2 9
+IsPrecededXY 6 14
+IsMetXY IsPrecededXY 6 13
+IsPrecededXY 6 16
+IsMetXY IsPrecededXY 6 15
+PrecedesXY 6 18
+IsMetXY IsPrecededXY 12 13
+IsMetXY IsPrecededXY 17 24
+IsPrecededXY 6 17
+IsPrecededXY 12 15
+IsPrecededXY 6 19
+IsPrecededXY 12 14
+PrecedesXY 17 20
+PrecedesXY 17 21
+PrecedesXY 17 22
+IsMetXY IsPrecededXY 17 23
+IsPrecededXY 6 10
+IsMetXY PrecedesXY 6 12
+IsMetXY IsPrecededXY 6 11
+PrecedesXY 23 24
+IsMetXY IsPrecededXY 12 17
+IsPrecededXY 12 16
+IsMetXY IsPrecededXY 12 19
+IsMetXY OverlapsXY PrecedesXY 12 18
+IsOverlappedXY 12 20
+IsMetXY IsPrecededXY 6 24
+PrecedesXY 12 22
+IsPrecededXY 12 21
+IsMetXY IsPrecededXY OverlapsXY StartsXY 12 24
+IsMetXY IsPrecededXY 12 23
+IsPrecededXY 1 14
+IsMetXY PrecedesXY 1 15
+IsMetXY OverlapsXY PrecedesXY StartsXY 1 12
+IsMetXY OverlapsXY PrecedesXY StartsXY 1 13
+IsPrecededXY 1 10
+IsPrecededXY 6 21
+IsMetXY IsPrecededXY 1 11
+PrecedesXY 6 20
+IsPrecededXY 6 23
+IsMetXY PrecedesXY 6 22
+IsMetXY PrecedesXY 1 2
+IsMetXY IsPrecededXY 1 3
+PrecedesXY 1 4
+PrecedesXY 1 5
+PrecedesXY 1 6
+IsMetXY PrecedesXY 1 7
+OverlapsXY 1 8
+IsMetXY IsPrecededXY OverlapsXY StartsXY 1 9
+IsMetXY PrecedesXY 11 21
+PrecedesXY 11 20
+IsMetXY IsPrecededXY 11 23
+PrecedesXY 11 22
+IsMetXY OverlapsXY StartsXY 11 24
+IsMetXY IsPrecededXY 1 23
+IsMetXY IsPrecededXY 1 24
+IsPrecededXY 1 21
+IsMetXY OverlapsXY PrecedesXY 1 22
+PrecedesXY 1 20
+PrecedesXY 1 18
+IsMetXY OverlapsXY 1 19
+IsPrecededXY 1 16
+IsMetXY IsPrecededXY OverlapsXY 1 17
+IsPrecededXY 7 15
+IsMetXY IsPrecededXY OverlapsXY 7 14
+IsMetXY OverlapsXY PrecedesXY 17 18
+IsMetXY IsPrecededXY 7 17
+IsMetXY OverlapsXY PrecedesXY 17 19
+IsMetXY IsPrecededXY OverlapsXY StartsXY 7 16
+IsPrecededXY 7 19
+IsMetXY PrecedesXY 7 18
+IsPrecededXY 7 11
+IsMetXY IsPrecededXY OverlapsXY 7 10
+IsMetXY IsPrecededXY OverlapsXY 7 13
+IsMetXY OverlapsXY PrecedesXY StartsXY 7 12
+PrecedesXY 0 1
+IsMetXY PrecedesXY 0 2
+IsMetXY PrecedesXY 0 3
+PrecedesXY 0 4
+IsMetXY PrecedesXY 0 5
+IsMetXY OverlapsXY PrecedesXY StartsXY 0 6
+IsMetXY OverlapsXY PrecedesXY StartsXY 0 7
+IsMetXY OverlapsXY PrecedesXY 0 8
+IsMetXY PrecedesXY 0 9
+PrecedesXY 16 19
+IsPrecededXY 8 9
+PrecedesXY 16 18
+IsMetXY OverlapsXY PrecedesXY StartsXY 16 17
+IsPrecededXY 2 16
+IsMetXY IsPrecededXY OverlapsXY StartsXY 2 15
+IsMetXY IsPrecededXY 2 14
+PrecedesXY 7 20
+IsMetXY IsPrecededXY 2 13
+PrecedesXY 2 12
+IsMetXY PrecedesXY 7 22
+IsPrecededXY 2 11
+IsMetXY IsPrecededXY 7 21
+IsMetXY IsPrecededXY 2 10
+IsMetXY IsPrecededXY 7 24
+IsPrecededXY 7 23
+IsMetXY OverlapsXY PrecedesXY 16 24
+IsPrecededXY 16 23
+PrecedesXY 11 12
+IsMetXY IsPrecededXY 11 14
+IsMetXY PrecedesXY 11 13
+IsMetXY IsPrecededXY 2 24
+IsMetXY IsPrecededXY OverlapsXY 2 23
+PrecedesXY 16 22
+PrecedesXY 2 22
+PrecedesXY 16 21
+IsPrecededXY 2 21
+IsMetXY OverlapsXY PrecedesXY 16 20
+PrecedesXY 2 20
+IsPrecededXY 2 19
+PrecedesXY 2 18
+IsMetXY IsPrecededXY 2 17
+IsMetXY IsPrecededXY 11 16
+IsMetXY PrecedesXY 11 15
+IsMetXY IsPrecededXY 22 24
+PrecedesXY 11 18
+IsPrecededXY 22 23
+IsMetXY PrecedesXY 11 17
+IsMetXY PrecedesXY 11 19

@@ -21,8 +21,6 @@ import fr.lirmm.coconut.acquisition.core.acqsolver.ValSelector;
 import fr.lirmm.coconut.acquisition.core.acqsolver.VarSelector;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Algorithm;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
-import fr.lirmm.coconut.acquisition.core.tools.FileManager;
-
 
 public abstract class DefaultExperience implements IExperience {
 	protected ACQ_SelectionHeuristics heuristic1 = ACQ_SelectionHeuristics.Lex;
@@ -30,6 +28,8 @@ public abstract class DefaultExperience implements IExperience {
 	protected static String vls = ValSelector.IntDomainRandom.toString();
 	protected static String vrs = VarSelector.DomOverWDeg.toString();
 	public String instance = "1";
+	public String algebratype = "Allen";
+
 	private int nTasks;
 
 	public static ACQ_Algorithm mode;
@@ -303,7 +303,9 @@ public abstract class DefaultExperience implements IExperience {
 	public String getName() {
 		return instance;
 	}
-
+	public String getAlgerbraType() {
+		return algebratype;
+	}
 	public int getPropagationchoice() {
 		return propagationchoice;
 	}

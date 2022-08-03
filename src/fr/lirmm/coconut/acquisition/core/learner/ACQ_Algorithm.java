@@ -6,5 +6,6 @@ public enum ACQ_Algorithm {
 	QUACQ,
 	PACQ,
 	LQCN,
- GEQCA
+ GEQCA,
+ GEQCA_IQ, GEQCA_BK_IQ
 }

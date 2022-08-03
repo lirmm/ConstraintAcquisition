@@ -1,0 +1,300 @@
+IsPrecededXY 8 17
+IsPrecededXY 8 18
+IsPrecededXY 15 24
+IsPrecededXY 8 15
+IsPrecededXY 15 23
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 7 8
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 8 16
+IsPrecededXY 15 22
+PrecedesXY 7 9
+IsPrecededXY 10 11
+PrecedesXY 8 19
+PrecedesXY 10 12
+IsPrecededXY 10 13
+IsPrecededXY 8 10
+IsPrecededXY 8 13
+PrecedesXY 15 21
+PrecedesXY 8 14
+PrecedesXY 15 20
+IsPrecededXY 8 11
+IsPrecededXY 8 12
+PrecedesXY 10 14
+IsPrecededXY 21 24
+PrecedesXY 10 15
+IsPrecededXY 21 23
+PrecedesXY 10 16
+IsPrecededXY 21 22
+PrecedesXY 10 17
+IsPrecededXY 10 18
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 10 19
+PrecedesXY 10 20
+PrecedesXY 10 21
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 10 22
+IsOverlappedXY 10 23
+IsPrecededXY 10 24
+IsPrecededXY 3 17
+IsPrecededXY 8 20
+IsPrecededXY 3 16
+PrecedesXY 8 21
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 3 15
+IsPrecededXY 3 14
+IsPrecededXY 3 13
+IsPrecededXY 8 24
+IsPrecededXY 3 12
+IsPrecededXY 3 11
+IsPrecededXY 8 22
+IsPrecededXY 3 10
+IsPrecededXY 8 23
+IsPrecededXY 3 20
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 6 7
+PrecedesXY 6 8
+PrecedesXY 6 9
+IsPrecededXY 3 24
+IsPrecededXY 3 23
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 3 22
+IsPrecededXY 3 21
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 3 19
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 3 18
+IsPrecededXY 9 18
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 9 19
+IsPrecededXY 9 16
+IsPrecededXY 9 17
+IsPrecededXY 15 18
+PrecedesXY 15 17
+PrecedesXY 15 16
+IsPrecededXY 9 10
+IsPrecededXY 9 11
+PrecedesXY 9 14
+IsPrecededXY 9 15
+IsPrecededXY 9 12
+IsPrecededXY 9 13
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 15 19
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 5 6
+IsPrecededXY 4 11
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 5 7
+PrecedesXY 4 12
+PrecedesXY 5 8
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 4 13
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 5 9
+PrecedesXY 4 14
+PrecedesXY 4 15
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 14 16
+PrecedesXY 4 16
+IsPrecededXY 14 17
+PrecedesXY 4 17
+IsPrecededXY 4 18
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 14 15
+PrecedesXY 9 21
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 19 23
+IsPrecededXY 9 22
+IsPrecededXY 19 22
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 9 20
+IsPrecededXY 19 24
+IsPrecededXY 9 23
+PrecedesXY 19 21
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 4 10
+IsPrecededXY 9 24
+IsPrecededXY 19 20
+IsPrecededXY 14 18
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 14 19
+PrecedesXY 4 22
+IsPrecededXY 14 23
+PrecedesXY 4 23
+IsPrecededXY 14 24
+PrecedesXY 4 24
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 14 21
+IsPrecededXY 14 22
+IsPrecededXY 20 24
+IsPrecededXY 14 20
+PrecedesXY 4 20
+PrecedesXY 4 21
+PrecedesXY 4 19
+IsPrecededXY 20 23
+IsPrecededXY 20 22
+PrecedesXY 20 21
+IsPrecededXY 4 5
+IsPrecededXY 4 6
+IsPrecededXY 4 7
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 4 8
+IsOverlappedXY 13 22
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 4 9
+PrecedesXY 13 23
+PrecedesXY 13 20
+PrecedesXY 13 21
+IsOverlappedXY 13 24
+PrecedesXY 5 12
+PrecedesXY 5 13
+PrecedesXY 5 14
+PrecedesXY 5 15
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 5 16
+PrecedesXY 5 17
+IsPrecededXY 5 18
+PrecedesXY 5 19
+PrecedesXY 5 10
+PrecedesXY 5 11
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 3 4
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 3 5
+IsPrecededXY 3 6
+IsPrecededXY 3 7
+IsPrecededXY 3 8
+IsPrecededXY 3 9
+PrecedesXY 5 23
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 5 24
+PrecedesXY 18 19
+PrecedesXY 0 13
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 0 14
+PrecedesXY 0 11
+PrecedesXY 0 12
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 0 10
+PrecedesXY 5 20
+PrecedesXY 5 21
+PrecedesXY 5 22
+PrecedesXY 13 15
+PrecedesXY 13 16
+PrecedesXY 13 14
+PrecedesXY 0 24
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 18 21
+PrecedesXY 18 22
+PrecedesXY 0 22
+PrecedesXY 18 23
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 0 23
+PrecedesXY 18 24
+PrecedesXY 0 20
+PrecedesXY 0 21
+PrecedesXY 18 20
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 0 19
+PrecedesXY 0 17
+PrecedesXY 0 18
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 0 15
+PrecedesXY 0 16
+PrecedesXY 13 19
+PrecedesXY 2 3
+IsPrecededXY 2 4
+PrecedesXY 13 17
+IsPrecededXY 2 5
+IsPrecededXY 13 18
+IsPrecededXY 2 6
+IsPrecededXY 2 7
+OverlapsXY 2 8
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 2 9
+PrecedesXY 6 14
+PrecedesXY 6 13
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 6 16
+PrecedesXY 6 15
+IsPrecededXY 6 18
+IsPrecededXY 12 13
+IsPrecededXY 17 24
+PrecedesXY 6 17
+IsPrecededXY 12 15
+PrecedesXY 6 19
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 12 14
+IsPrecededXY 17 20
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 17 21
+IsPrecededXY 17 22
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 17 23
+PrecedesXY 6 10
+PrecedesXY 6 12
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 6 11
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 23 24
+PrecedesXY 12 17
+PrecedesXY 12 16
+PrecedesXY 12 19
+IsPrecededXY 12 18
+PrecedesXY 12 20
+PrecedesXY 6 24
+IsPrecededXY 12 22
+PrecedesXY 12 21
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 12 24
+IsPrecededXY 12 23
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 1 14
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 1 15
+IsPrecededXY 1 12
+IsPrecededXY 1 13
+IsPrecededXY 1 10
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 6 21
+IsPrecededXY 1 11
+PrecedesXY 6 20
+PrecedesXY 6 23
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 6 22
+PrecedesXY 1 2
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 1 3
+IsPrecededXY 1 4
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 1 5
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 1 6
+IsPrecededXY 1 7
+PrecedesXY 1 8
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 1 9
+PrecedesXY 11 21
+PrecedesXY 11 20
+PrecedesXY 11 23
+PrecedesXY 11 22
+PrecedesXY 11 24
+IsPrecededXY 1 23
+IsPrecededXY 1 24
+PrecedesXY 1 21
+IsPrecededXY 1 22
+IsPrecededXY 1 20
+IsPrecededXY 1 18
+PrecedesXY 1 19
+IsPrecededXY 1 16
+IsPrecededXY 1 17
+PrecedesXY 7 15
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 7 14
+IsPrecededXY 17 18
+PrecedesXY 7 17
+PrecedesXY 17 19
+PrecedesXY 7 16
+PrecedesXY 7 19
+PrecedesXY 7 18
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 7 11
+PrecedesXY 7 10
+PrecedesXY 7 13
+PrecedesXY 7 12
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 0 1
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 0 2
+PrecedesXY 0 3
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 0 4
+PrecedesXY 0 5
+PrecedesXY 0 6
+PrecedesXY 0 7
+PrecedesXY 0 8
+PrecedesXY 0 9
+PrecedesXY 16 19
+IsPrecededXY 8 9
+IsPrecededXY 16 18
+OverlapsXY 16 17
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 2 16
+IsPrecededXY 2 15
+PrecedesXY 2 14
+PrecedesXY 7 20
+IsPrecededXY 2 13
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 2 12
+PrecedesXY 7 22
+IsPrecededXY 2 11
+PrecedesXY 7 21
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 2 10
+PrecedesXY 7 24
+PrecedesXY 7 23
+IsPrecededXY 16 24
+IsPrecededXY 16 23
+PrecedesXY 11 12
+PrecedesXY 11 14
+PrecedesXY 11 13
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 2 24
+IsPrecededXY 2 23
+IsPrecededXY 16 22
+IsPrecededXY 2 22
+PrecedesXY 16 21
+PrecedesXY 2 21
+IsStartedXY 16 20
+IsPrecededXY 2 20
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 2 19
+IsPrecededXY 2 18
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 2 17
+ContainsXY DuringXY ExactXY FinishXY IsFinishedXY IsMetXY IsOverlappedXY IsPrecededXY IsStartedXY MeetsXY OverlapsXY PrecedesXY StartsXY 11 16
+PrecedesXY 11 15
+OverlapsXY 22 24
+IsPrecededXY 11 18
+PrecedesXY 22 23
+PrecedesXY 11 17
+PrecedesXY 11 19

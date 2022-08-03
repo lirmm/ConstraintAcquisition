@@ -1,5 +1,9 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package GEQCA;
-
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -14,6 +18,8 @@ import fr.lirmm.coconut.acquisition.core.acqconstraint.ACQ_TemporalVariable;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.BinaryArithmetic;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintFactory;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintFactory.ConstraintSet;
+import fr.lirmm.coconut.acquisition.core.acqconstraint.ConstraintMapping;
+import fr.lirmm.coconut.acquisition.core.acqconstraint.ContradictionSet;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.Operator;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.OverlapArithmetic;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.OverlapConstraint;
@@ -22,7 +28,9 @@ import fr.lirmm.coconut.acquisition.core.acqconstraint.TemporalArithmetic;
 import fr.lirmm.coconut.acquisition.core.acqconstraint.TemporalConstraint;
 import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_ChocoSolver;
 import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_ConstraintSolver;
+import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_Heuristic;
 import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_IDomain;
+import fr.lirmm.coconut.acquisition.core.acqsolver.SATSolver;
 import fr.lirmm.coconut.acquisition.core.combinatorial.AllPermutationIterator;
 import fr.lirmm.coconut.acquisition.core.combinatorial.CombinationIterator;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Bias;
@@ -30,7 +38,11 @@ import fr.lirmm.coconut.acquisition.core.learner.ACQ_Learner;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Scope;
 
-
+/*****************
+ * 
+ * @author NASSIM
+ *
+ */
 
 public class ExpeFromParser extends DefaultExperience {
 
@@ -523,6 +535,207 @@ public class ExpeFromParser extends DefaultExperience {
 						}
 
 						break;
+					case "DisconnectedXY":
+						while (pIterator.hasNext()) {
+							int[] pos = pIterator.next();
+							constraintFactory = new ConstraintFactory();
+							if (vars[pos[0]] % 2 == 0&&vars[pos[1]] % 2 == 0) {
+
+							if (vars[pos[0]] < vars[pos[1]]) {
+								ACQ_TemporalVariable variable1 = new ACQ_TemporalVariable(vars[pos[0]],
+										vars[pos[0]] + 1);
+								ACQ_TemporalVariable variable2 = new ACQ_TemporalVariable(vars[pos[1]],
+										vars[pos[1]] + 1);
+								constraints.add(new OverlapArithmetic(rel.name(), variable2, Operator.LT,
+										variable1, "DisconnectedXY",true));
+								mapping.get(vars[pos[0]] + "-" + vars[pos[1]]).add(new OverlapArithmetic(rel.name(), variable2, Operator.LT,
+										variable1, "DisconnectedXY",true));
+							}
+							}
+						}
+						break;
+					case "ExternallyConnectedXY":
+						while (pIterator.hasNext()) {
+							int[] pos = pIterator.next();
+							constraintFactory = new ConstraintFactory();
+							if (vars[pos[0]] % 2 == 0&&vars[pos[1]] % 2 == 0) {
+								if (vars[pos[0]] < vars[pos[1]]) {
+									ACQ_TemporalVariable variable1 = new ACQ_TemporalVariable(vars[pos[0]],
+											vars[pos[0]] + 1);
+									ACQ_TemporalVariable variable2 = new ACQ_TemporalVariable(vars[pos[1]],
+											vars[pos[1]] + 1);
+									constraints.add(new TemporalArithmetic(rel.name(), variable1, Operator.EQ,
+											variable2, true, Operator.LT, "ExternallyConnectedXY",false));
+									mapping.get(vars[pos[0]] + "-" + vars[pos[1]])
+											.add(new TemporalArithmetic(rel.name(), variable1, Operator.EQ, variable2,
+													true, Operator.LT, "ExternallyConnectedXY",false));
+									// constraints.add(new TemporalArithmetic("StartsXY", vars[pos[0]], Operator.EQ,
+									// vars[pos[1]], 0,0,Operator.LT, "NotStartsXY"));
+									// mapping.get(vars[pos[0]]+"-"+vars[pos[1]]).add( new
+									// TemporalArithmetic("StartsXY", vars[pos[0]], Operator.EQ, vars[pos[1]],0, 0,
+									// Operator.LT,"NotStartsXY"));
+
+								}
+							}
+
+						}
+						break;
+					case "TangentialProperPartXY":
+						while (pIterator.hasNext()) {
+							int[] pos = pIterator.next();
+							constraintFactory = new ConstraintFactory();
+							if (vars[pos[0]] % 2 == 0&&vars[pos[1]] % 2 == 0) {
+
+							if (vars[pos[0]] < vars[pos[1]]) {
+								ACQ_TemporalVariable variable1 = new ACQ_TemporalVariable(vars[pos[0]],
+										vars[pos[0]] + 1);
+								ACQ_TemporalVariable variable2 = new ACQ_TemporalVariable(vars[pos[1]],
+										vars[pos[1]] + 1);
+								constraints.add(new TemporalArithmetic(rel.name(), variable2, Operator.EQ,
+										variable1, true, Operator.LT, "TangentialProperPartXY",true));
+								mapping.get(vars[pos[0]] + "-" + vars[pos[1]])
+										.add(new TemporalArithmetic(rel.name(), variable2, Operator.EQ, variable1,
+												true, Operator.LT, "TangentialProperPartXY",true));
+								// constraints.add(new TemporalArithmetic("IsStartedXY", vars[pos[1]],
+								// Operator.EQ, vars[pos[0]], 0,0,Operator.LT, "IsNotStartsXY"));
+								// mapping.get(vars[pos[0]]+"-"+vars[pos[1]]).add( new
+								// TemporalArithmetic("IsStartedXY", vars[pos[1]], Operator.EQ, vars[pos[0]],
+								// 0,0,Operator.LT, "IsNotStartsXY"));
+
+							}
+							}
+
+						}
+						break;
+					case "TangentialProperPartInverseXY":
+						while (pIterator.hasNext()) {
+							int[] pos = pIterator.next();
+							constraintFactory = new ConstraintFactory();
+							if (vars[pos[0]] % 2 == 0&&vars[pos[1]] % 2 == 0) {
+
+							if (vars[pos[0]] < vars[pos[1]]) {
+								ACQ_TemporalVariable variable1 = new ACQ_TemporalVariable(vars[pos[0]],
+										vars[pos[0]] + 1);
+								ACQ_TemporalVariable variable2 = new ACQ_TemporalVariable(vars[pos[1]],
+										vars[pos[1]] + 1);
+								constraints.add(new TemporalArithmetic(rel.name(), variable1, Operator.GT,
+										variable2, true, Operator.LT, "TangentialProperPartInverseXY",false));
+								mapping.get(vars[pos[0]] + "-" + vars[pos[1]])
+										.add(new TemporalArithmetic(rel.name(), variable1, Operator.GT, variable2,
+												true, Operator.LT, "TangentialProperPartInverseXY",false));
+								// constraints.add(new TemporalArithmetic(rel.name(), vars[pos[0]], Operator.GT,
+								// vars[pos[1]], 0,0,Operator.LT, "NotDuringXY"));
+								// mapping.get(vars[pos[0]]+"-"+vars[pos[1]]).add( new
+								// TemporalArithmetic("DuringXY", vars[pos[0]], Operator.GT, vars[pos[1]],
+								// 0,0,Operator.LT, "NotDuringXY"));
+
+							}
+							}
+						}
+						break;
+					case "PartiallyOverlappingXY":
+						while (pIterator.hasNext()) {
+							int[] pos = pIterator.next();
+							if (vars[pos[0]] % 2 == 0&&vars[pos[1]] % 2 == 0) {
+
+							if (vars[pos[0]] < vars[pos[1]]) {
+								ACQ_TemporalVariable variable1 = new ACQ_TemporalVariable(vars[pos[0]],
+										vars[pos[0]] + 1);
+								ACQ_TemporalVariable variable2 = new ACQ_TemporalVariable(vars[pos[1]],
+										vars[pos[1]] + 1);
+								constraints.add(new TemporalArithmetic(rel.name(), variable2, Operator.GT,
+										variable1, true, Operator.LT, "PartiallyOverlappingXY",true));
+								mapping.get(vars[pos[0]] + "-" + vars[pos[1]])
+										.add(new TemporalArithmetic(rel.name(), variable2, Operator.GT, variable1,
+												true, Operator.LT, "PartiallyOverlappingXY",true));
+								// constraints.add(new TemporalArithmetic(rel.name(), vars[pos[1]], Operator.GT,
+								// vars[pos[0]], 0,0,Operator.LT, "NotDuringXY"));
+								// mapping.get(vars[pos[0]]+"-"+vars[pos[1]]).add(new
+								// TemporalArithmetic("DuringXY", vars[pos[1]], Operator.GT, vars[pos[0]],
+								// 0,0,Operator.LT, "NotDuringXY"));
+
+							}
+							}
+						}
+						break;
+
+					case "NonTangentialProperPartXY":
+						while (pIterator.hasNext()) {
+							int[] pos = pIterator.next();
+							if (vars[pos[0]] % 2 == 0&&vars[pos[1]] % 2 == 0) {
+
+							if (vars[pos[0]] < vars[pos[1]]) {
+								ACQ_TemporalVariable variable1 = new ACQ_TemporalVariable(vars[pos[0]],
+										vars[pos[0]] + 1);
+								ACQ_TemporalVariable variable2 = new ACQ_TemporalVariable(vars[pos[1]],
+										vars[pos[1]] + 1);
+								constraints.add(new TemporalArithmetic(rel.name(), variable1, Operator.EQ,
+										variable2, true, Operator.EQ, "NonTangentialProperPartXY",false));
+								mapping.get(vars[pos[0]] + "-" + vars[pos[1]])
+										.add(new TemporalArithmetic(rel.name(), variable1, Operator.EQ, variable2,
+												true, Operator.EQ, "NonTangentialProperPartXY",false));
+								// constraints.add(new TemporalArithmetic(rel.name(), vars[pos[0]], Operator.EQ,
+								// vars[pos[1]], 0,0,Operator.EQ, "NotExactXY"));
+								// mapping.get(vars[pos[0]]+"-"+vars[pos[1]]).add( new
+								// TemporalArithmetic("ExactXY", vars[pos[0]], Operator.EQ, vars[pos[1]],
+								// 0,0,Operator.EQ, "NotExactXY"));
+
+							}
+							}
+						}
+						break;
+					case "NonTangentialProperPartInverseXY":
+						while (pIterator.hasNext()) {
+							int[] pos = pIterator.next();
+							if (vars[pos[0]] % 2 == 0&&vars[pos[1]] % 2 == 0) {
+
+							if (vars[pos[0]] < vars[pos[1]]) {
+								ACQ_TemporalVariable variable1 = new ACQ_TemporalVariable(vars[pos[0]],
+										vars[pos[0]] + 1);
+								ACQ_TemporalVariable variable2 = new ACQ_TemporalVariable(vars[pos[1]],
+										vars[pos[1]] + 1);
+								constraints.add(new TemporalArithmetic(rel.name(), variable1, Operator.GT,
+										variable2, true, Operator.EQ, "NonTangentialProperPartInverseXY",false));
+								mapping.get(vars[pos[0]] + "-" + vars[pos[1]])
+										.add(new TemporalArithmetic(rel.name(), variable1, Operator.GT, variable2,
+												true, Operator.EQ, "NonTangentialProperPartInverseXY",false));
+								// constraints.add(new TemporalArithmetic(rel.name(), vars[pos[0]], Operator.GT,
+								// vars[pos[1]], 0,0,Operator.EQ, "NotFinishXY"));
+								// mapping.get(vars[pos[0]]+"-"+vars[pos[1]]).add(new
+								// TemporalArithmetic("FinishXY", vars[pos[0]], Operator.GT, vars[pos[1]],
+								// 0,0,Operator.EQ, "NotFinishXY"));
+
+							}
+							}
+						}
+
+						break;
+					case "REqualXY":
+						while (pIterator.hasNext()) {
+							int[] pos = pIterator.next();
+							if (vars[pos[0]] % 2 == 0&&vars[pos[1]] % 2 == 0) {
+
+							if (vars[pos[0]] < vars[pos[1]]) {
+								ACQ_TemporalVariable variable1 = new ACQ_TemporalVariable(vars[pos[0]],
+										vars[pos[0]] + 1);
+								ACQ_TemporalVariable variable2 = new ACQ_TemporalVariable(vars[pos[1]],
+										vars[pos[1]] + 1);
+								constraints.add(new TemporalArithmetic(rel.name(), variable1, Operator.GT,
+										variable2, true, Operator.EQ, "REqualXY",false));
+								mapping.get(vars[pos[0]] + "-" + vars[pos[1]])
+										.add(new TemporalArithmetic(rel.name(), variable1, Operator.GT, variable2,
+												true, Operator.EQ, "REqualXY",false));
+								// constraints.add(new TemporalArithmetic(rel.name(), vars[pos[0]], Operator.GT,
+								// vars[pos[1]], 0,0,Operator.EQ, "NotFinishXY"));
+								// mapping.get(vars[pos[0]]+"-"+vars[pos[1]]).add(new
+								// TemporalArithmetic("FinishXY", vars[pos[0]], Operator.GT, vars[pos[1]],
+								// 0,0,Operator.EQ, "NotFinishXY"));
+
+							}
+							}
+						}
+
+						break;
 					default:
 						while (pIterator.hasNext()) {
 							int[] pos = pIterator.next();
@@ -601,7 +814,13 @@ public class ExpeFromParser extends DefaultExperience {
 		case GEQCA:
 			ACQ_Utils.executeGEQCAExperience(this);
 			break;
-			
+		case GEQCA_IQ:
+			ACQ_Utils.executeGEQCAIQExperience(this);
+			break;
+	
+		case GEQCA_BK_IQ:
+			ACQ_Utils.executeGEQCA_BK_IQ_Experience(this);
+			break;
 		default:
 			ACQ_Utils.executeLQCNExperience(this);
 			break;
@@ -707,6 +926,12 @@ public class ExpeFromParser extends DefaultExperience {
 	public void setDeadline(int deadline) {
 		
 		this.deadline=deadline;
+		// TODO Auto-generated method stub
+		
+	}
+public void setAlgebraType(String type) {
+		
+		this.algebratype=type;
 		// TODO Auto-generated method stub
 		
 	}

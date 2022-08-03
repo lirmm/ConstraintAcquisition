@@ -1,0 +1,10 @@
+DisconnectedXY 0 1
+TangentialProperPartXY NonTangentialProperPartXY 0 2
+DisconnectedXY ExternallyConnectedXY 0 3
+ExternallyConnectedXY 0 4
+DisconnectedXY ExternallyConnectedXY 1 2
+NonTangentialProperPartXY 1 3
+ExternallyConnectedXY 1 4
+DisconnectedXY ExternallyConnectedXY 2 3
+DisconnectedXY ExternallyConnectedXY TangentialProperPartXY TangentialProperPartInverseXY PartiallyOverlappingXY REqualXY NonTangentialProperPartXY NonTangentialProperPartInverseXY 2 4
+DisconnectedXY ExternallyConnectedXY TangentialProperPartXY TangentialProperPartInverseXY PartiallyOverlappingXY REqualXY NonTangentialProperPartXY NonTangentialProperPartInverseXY 3 4

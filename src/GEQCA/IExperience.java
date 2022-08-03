@@ -5,7 +5,6 @@ import fr.lirmm.coconut.acquisition.core.acqsolver.ACQ_ConstraintSolver;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Bias;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Learner;
 
-
 public interface IExperience {
 
 	public ACQ_Bias createBias();
@@ -40,6 +39,7 @@ public interface IExperience {
 	public int ACQRate(ACQ_Network target_network, ACQ_Network learned_network);
 
 	public String getName();
+	public String getAlgerbraType();
 
 	public int getPropagation();
 	public int getDeadline();

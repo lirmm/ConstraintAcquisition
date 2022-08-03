@@ -4,8 +4,11 @@ import java.io.IOException;
 
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Algorithm;
 
-
-
+/*************
+ * 
+ * @author NADJIB
+ *
+ */
 public class ExpeBuilder {
 	protected static String exp_name;
 
@@ -17,6 +20,7 @@ public class ExpeBuilder {
 	private static ACQ_Algorithm mode;
 	protected int propagationchoice;
 	protected int deadline;
+	protected String algebratype;
 
 	private ACQ_SelectionHeuristics sheuristic;
 	public ExpeBuilder() {
@@ -42,7 +46,10 @@ public class ExpeBuilder {
 		this.mode = mode;
 		return this;
 	}
-
+	public ExpeBuilder setAlgebraType(String type) {
+		this.algebratype = type;
+		return this;
+	}
 	public ExpeBuilder setVerbose(boolean verbose) {
 		this.verbose = verbose;
 		return this;
@@ -69,6 +76,7 @@ public class ExpeBuilder {
 			exp.setPropagation(propagationchoice);
 			exp.setSelectionHeuristic(sheuristic);
 			exp.setDeadline(deadline);
+			exp.setAlgebraType(algebratype);
 			return exp;
 
 		

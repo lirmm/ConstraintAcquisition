@@ -1,0 +1,10 @@
+nbVars 20
+domainSize 1 14
+
+Gamma 
+AT_GT
+AT_LT
+AT_Diff
+AT_Equal
+AT_GE
+AT_LE

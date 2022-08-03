@@ -223,7 +223,7 @@ public abstract class DefaultExperience implements IExperience {
 
 	public void readDataset() {
 		try (Scanner sc = new Scanner(
-				new File(directory.getAbsolutePath() + "/Meetings/problem" + instance + ".txt"))) {
+				new File("src/fr/lirmm/coconut/acquisition/bench/Meetings/problem" + instance + ".txt"))) {
 
 			/* process input */
 			nMeetings = sc.nextInt();

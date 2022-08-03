@@ -33,7 +33,6 @@ import fr.lirmm.coconut.acquisition.core.combinatorial.CombinationIterator;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Learner;
 import fr.lirmm.coconut.acquisition.core.learner.ACQ_Query;
 import fr.lirmm.coconut.acquisition.core.tools.Chrono;
-import fr.lirmm.coconut.acquisition.core.tools.FileManager;
 
 public class LearningQCN {
 
@@ -55,18 +54,22 @@ public class LearningQCN {
 	boolean propagate = false;
 	protected int nb_vars;
 	protected IExperience exp;
+	public int langsize;
+	public String type;
 	protected Map<List<Integer>, List<ACQ_Relation>> learnedRelations;
 
 	public LearningQCN(ACQ_ConstraintSolver solver, HashMap<String, ArrayList<String>> bias,
-			HashMap<String, String> target, ACQ_Learner learner, int nb_vars, ACQ_SelectionHeuristics heuristic) {
+			HashMap<String, String> target, ACQ_Learner learner, int nb_vars, ACQ_SelectionHeuristics heuristic,String type) {
 
 		// NL: config part
 		this.sheuristic = heuristic;
 		this.solver = solver;
 		this.L = bias;
+		this.langsize=bias.values().iterator().next().size();
 		this.target = target;
 		this.learner = learner;
 		this.nb_vars = nb_vars;
+		this.type = type;
 
 	}
 
@@ -122,7 +125,11 @@ public class LearningQCN {
 			process_compositionPath();
 			chrono.stop("total_acq_time");
 			break;
-
+		case PathWeighted:
+			chrono.start("total_acq_time");
+			process_compositionPathWeighted();
+			chrono.stop("total_acq_time");
+			break;
 		default:
 			chrono.start("total_acq_time");
 			process_composition();
@@ -261,7 +268,11 @@ public class LearningQCN {
 				nocollapse = PathConsistency();
 				propagate = false;
 			}
-
+			
+			if(!nocollapse){
+				break;
+			}
+			
 			end = System.currentTimeMillis();
 			String input = (nPositives + nNegatives) + "\t" + nPositives + "\t" + nNegatives + "\t" + ((end - start))
 					+ "\t";
@@ -317,9 +328,9 @@ public class LearningQCN {
 				propagate = false;
 			}
 
-			// if(nocollapse==false){
-			// System.exit(0);
-//				}
+			if(!nocollapse){
+				break;
+			}
 			end = System.currentTimeMillis();
 			String input = (nPositives + nNegatives) + "\t" + nPositives + "\t" + nNegatives + "\t"
 					+ ((end - start) / 1000) + "\t";
@@ -328,6 +339,93 @@ public class LearningQCN {
 		}
 		boolean nocollapse = PathConsistency();
 		FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
+
+		System.out.println("Converage :: " + nocollapse);
+
+	}
+	public void process_compositionPathWeighted() {
+		Supplier<String> vSupplier = new Supplier<String>() {
+			private int id = 0;
+
+			@Override
+			public String get() {
+				return "" + id++;
+			}
+		};
+		Graph<String, DefaultEdge> completeGraph = new SimpleGraph<>(vSupplier,
+				SupplierUtil.createDefaultEdgeSupplier(), false);
+		CombinationIterator iterator1 = new CombinationIterator(nb_vars, 2);
+		List<int[]> variables = new ArrayList<int[]>();
+
+		while (iterator1.hasNext()) {
+			int[] vars = new int[2];
+			vars = iterator1.next();
+
+			if (vars[0] < vars[1]) {
+				variables.add(new int[] { vars[0], vars[1] });
+				completeGraph.addVertex(vars[0] + "");
+				completeGraph.addVertex(vars[1] + "");
+				completeGraph.addEdge(vars[0] + "", vars[1] + "");
+				completeGraph.addEdge(vars[1] + "", vars[0] + "");
+
+			}
+		}
+		System.out.println(completeGraph.edgeSet().size());
+
+		// Collections.shuffle(variables);
+		ACQ_SelectionHeuristic selection = new ACQ_SelectionHeuristic();
+		long end = System.currentTimeMillis();
+		int i = 0;
+		int[] vars = variables.get(0);
+		DefaultEdge eg=completeGraph.getEdge(vars[0]+"", vars[1]+"");
+	 	 //completeGraph.removeEdge(eg);
+		 ArrayList<DefaultEdge> edgs= new ArrayList<DefaultEdge>();
+
+		 while (!variables.isEmpty()) {
+			long start = System.currentTimeMillis();
+
+			
+			vars = selection.PathWeightedHeuristic(completeGraph, vars, nb_vars,L,edgs);
+			
+			if (vars[0] == 0 && vars[1] == 0 )
+				break;
+			String scope = vars[0] + "," + vars[1];
+			DefaultEdge e = completeGraph.getEdge(vars[0]+"", vars[1]+"");
+			completeGraph.removeEdge(e);
+
+			variables.remove(vars);
+
+			System.out.println(scope);
+			ArrayList<String> L_s = L.get(scope);
+
+			relationsForPair(L_s, scope);
+
+			if (L_s.size() > 1) {
+				if (verbose)
+					System.out.println("Clause number " + i++ + " has been learned");
+			} else if (L_s.size() == 1) {
+				if (verbose)
+					System.out.println("Constraint number " + i++ + " has been learned");
+			}
+			boolean nocollapse = true;
+			if (propagate) {
+				nocollapse = PathConsistency();
+				propagate = false;
+			}
+
+			if(!nocollapse){
+				break;
+			}
+			end = System.currentTimeMillis();
+			String input = (nPositives + nNegatives) + "\t" + nPositives + "\t" + nNegatives + "\t"
+					+ ((end - start) / 1000) + "\t";
+			FileManager.printFile(input, "Tasks" + nb_vars / 2 + "_" + exp.getName() + "_" + sheuristic + ".csv");
+			times.add((end-start));
+		}
+		boolean nocollapse =PathConsistency();
+
+		FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
+		System.out.println(edgs.size());
 
 		System.out.println("Converage :: " + nocollapse);
 
@@ -372,6 +470,8 @@ public class LearningQCN {
 				break;
 			String scope = vars[0] + "," + vars[1];
 			variables.remove(vars);
+			System.out.println(variables.size());
+
 			System.out.println(scope);
 			ArrayList<String> L_s = L.get(scope);
 
@@ -390,16 +490,16 @@ public class LearningQCN {
 				propagate = false;
 			}
 
-			// if(nocollapse==false){
-			// System.exit(0);
-//				}
+			if(!nocollapse){
+				break;
+			}
 			end = System.currentTimeMillis();
 			String input = (nPositives + nNegatives) + "\t" + nPositives + "\t" + nNegatives + "\t"
 					+ ((end - start) / 1000) + "\t";
 			FileManager.printFile(input, "Tasks" + nb_vars / 2 + "_" + exp.getName() + "_" + sheuristic + ".csv");
 			times.add((end-start));
 		}
-		boolean nocollapse = PathConsistency();
+		boolean nocollapse =PathConsistency();
 
 		FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
 
@@ -707,54 +807,20 @@ public class LearningQCN {
 	}
 
 	public ArrayList<String> Composition(ArrayList<String> parentsList, String child) {
+		return Composition(parentsList, child, type, langsize, L);
+	}
 
+	public static ArrayList<String> Composition(ArrayList<String> parentsList, String child, String type, int langsize, Map<String, ArrayList<String>> L) {
+		
 		HashMap<String, String> mapping = new HashMap<String, String>();
-		mapping.put("PrecedesXY", "p");
-		mapping.put("IsPrecededXY", "P");
-		mapping.put("MeetsXY", "m");
-		mapping.put("IsMetXY", "M");
-		mapping.put("OverlapsXY", "o");
-		mapping.put("IsOverlappedXY", "O");
-		mapping.put("StartsXY", "s");
-		mapping.put("IsStartedXY", "S");
-		mapping.put("DuringXY", "d");
-		mapping.put("ContainsXY", "D");
-		mapping.put("FinishXY", "f");
-		mapping.put("IsFinishedXY", "F");
-		mapping.put("ExactXY", "e");
-		mapping.put("oFDseSdfO", "concur");
-		mapping.put("pmoFDseSdfOMP", "full");
-
 		HashMap<String, String> mapping1 = new HashMap<String, String>();
-		mapping1.put("p", "PrecedesXY");
-		mapping1.put("P", "IsPrecededXY");
-		mapping1.put("m", "MeetsXY");
-		mapping1.put("M", "IsMetXY");
-		mapping1.put("o", "OverlapsXY");
-		mapping1.put("O", "IsOverlappedXY");
-		mapping1.put("s", "StartsXY");
-		mapping1.put("S", "IsStartedXY");
-		mapping1.put("d", "DuringXY");
-		mapping1.put("D", "ContainsXY");
-		mapping1.put("f", "FinishXY");
-		mapping1.put("F", "IsFinishedXY");
-		mapping1.put("e", "ExactXY");
 		HashMap<String, String> inverse = new HashMap<String, String>();
-		inverse.put("PrecedesXY", "IsPrecededXY");
-		inverse.put("IsPrecededXY", "PrecedesXY");
-		inverse.put("MeetsXY", "IsMetXY");
-		inverse.put("IsMetXY", "MeetsXY");
-		inverse.put("OverlapsXY", "IsOverlappedXY");
-		inverse.put("IsOverlappedXY", "OverlapsXY");
-		inverse.put("StartsXY", "IsStartedXY");
-		inverse.put("IsStartedXY", "StartsXY");
-		inverse.put("DuringXY", "ContainsXY");
-		inverse.put("ContainsXY", "DuringXY");
-		inverse.put("FinishXY", "IsFinishedXY");
-		inverse.put("IsFinishedXY", "FinishXY");
-		inverse.put("ExactXY", "ExactXY");
 
-		HashMap<String, String> table = FileManager.parseCompTable();
+		BuildingMapping(mapping,mapping1,inverse,type);
+		
+		
+
+		HashMap<String, ArrayList<String>> table = FileManager.parseCompTable(type);
 
 		ArrayList<String> set = new ArrayList<String>();
 
@@ -823,12 +889,12 @@ public class LearningQCN {
 			}
 		}
 
-		if (network1_.length == 13) {
+		if (network1_.length == langsize) {
 			for (String c : network1_)
 				set.add(c);
 			return set;
 		}
-		if (network2_.length == 13) {
+		if (network2_.length == langsize) {
 			for (String c : network2_)
 				set.add(c);
 			return set;
@@ -838,7 +904,7 @@ public class LearningQCN {
 
 			for (String c1 : network2_) {
 
-				ComputeComposition(c, c1, table, mapping, mapping1, child, finalset);
+				ComputeComposition(c, c1, table, mapping, mapping1, child, finalset, type, langsize);
 
 			}
 
@@ -846,6 +912,105 @@ public class LearningQCN {
 
 		return finalset;
 
+	}
+
+	public static void BuildingMapping(HashMap<String, String>mapping,HashMap<String, String>mapping1,HashMap<String, String> inverse,String type) {
+		switch (type) {
+		case "Allen":
+
+			mapping.put("PrecedesXY", "p");
+			mapping.put("IsPrecededXY", "P");
+			mapping.put("MeetsXY", "m");
+			mapping.put("IsMetXY", "M");
+			mapping.put("OverlapsXY", "o");
+			mapping.put("IsOverlappedXY", "O");
+			mapping.put("StartsXY", "s");
+			mapping.put("IsStartedXY", "S");
+			mapping.put("DuringXY", "d");
+			mapping.put("ContainsXY", "D");
+			mapping.put("FinishXY", "f");
+			mapping.put("IsFinishedXY", "F");
+			mapping.put("ExactXY", "e");
+			mapping.put("oFDseSdfO", "concur");
+			mapping.put("pmoFDseSdfOMP", "full");
+
+			mapping1.put("p", "PrecedesXY");
+			mapping1.put("P", "IsPrecededXY");
+			mapping1.put("m", "MeetsXY");
+			mapping1.put("M", "IsMetXY");
+			mapping1.put("o", "OverlapsXY");
+			mapping1.put("O", "IsOverlappedXY");
+			mapping1.put("s", "StartsXY");
+			mapping1.put("S", "IsStartedXY");
+			mapping1.put("d", "DuringXY");
+			mapping1.put("D", "ContainsXY");
+			mapping1.put("f", "FinishXY");
+			mapping1.put("F", "IsFinishedXY");
+			mapping1.put("e", "ExactXY");
+			mapping1.put( "full","pmoFDseSdfOMP");
+
+			inverse.put("PrecedesXY", "IsPrecededXY");
+			inverse.put("IsPrecededXY", "PrecedesXY");
+			inverse.put("MeetsXY", "IsMetXY");
+			inverse.put("IsMetXY", "MeetsXY");
+			inverse.put("OverlapsXY", "IsOverlappedXY");
+			inverse.put("IsOverlappedXY", "OverlapsXY");
+			inverse.put("StartsXY", "IsStartedXY");
+			inverse.put("IsStartedXY", "StartsXY");
+			inverse.put("DuringXY", "ContainsXY");
+			inverse.put("ContainsXY", "DuringXY");
+			inverse.put("FinishXY", "IsFinishedXY");
+			inverse.put("IsFinishedXY", "FinishXY");
+			inverse.put("ExactXY", "ExactXY");
+			break;
+		case "RCC5":
+			break;
+		case "RCC8":
+
+			mapping.put("DisconnectedXY", "DC");
+			mapping.put("ExternallyConnectedXY", "EC");
+			mapping.put("REqualXY", "EQ");
+			mapping.put("PartiallyOverlappingXY", "PO");
+			mapping.put("TangentialProperPartXY", "TPP");
+			mapping.put("TangentialProperPartInverseXY", "TPPi");
+			mapping.put("NonTangentialProperPartXY", "NTPP");
+			mapping.put("NonTangentialProperPartInverseXY", "NTPPi");
+			mapping.put("DC EC EQ PO TPP TPPi NTPP NTPPi", "*");
+			mapping.put( "*","DC EC EQ PO TPP TPPi NTPP NTPPi");
+
+
+			mapping1.put("DC", "DisconnectedXY");
+			mapping1.put("EC", "ExternallyConnectedXY");
+			mapping1.put("EQ", "REqualXY");
+			mapping1.put("PO", "PartiallyOverlappingXY");
+			mapping1.put("TPP", "TangentialProperPartXY");
+			mapping1.put("TPPi", "TangentialProperPartInverseXY");
+			mapping1.put("NTPP", "NonTangentialProperPartXY");
+			mapping1.put("NTPPi", "NonTangentialProperPartInverseXY");
+			mapping1.put( "*","DisconnectedXY ExternallyConnectedXY REqualXY PartiallyOverlappingXY TangentialProperPartXY TangentialProperPartInverseXY NonTangentialProperPartXY NonTangentialProperPartInverseXY");
+
+			inverse.put("DisconnectedXY", "DisconnectedXY");
+			inverse.put("PartiallyOverlappingXY", "PartiallyOverlappingXY");
+			
+			inverse.put("ExternallyConnectedXY", "ExternallyConnectedXY");
+			inverse.put("REqualXY", "REqualXY");
+			
+			inverse.put("TangentialProperPartXY", "TangentialProperPartInverseXY");
+			inverse.put("TangentialProperPartInverseXY", "TangentialProperPartXY");
+			
+			inverse.put("NonTangentialProperPartXY", "NonTangentialProperPartInverseXY");
+			inverse.put("NonTangentialProperPartInverseXY", "NonTangentialProperPartXY");
+		
+			
+			break;
+		case "Point":
+			break;
+		case "OPRA4":
+			break;
+		case "Cardinal":
+			break;
+		
+		}
 	}
 
 	public boolean PathConsistency() {
@@ -955,22 +1120,59 @@ public class LearningQCN {
 		return set;
 	}
 
-	private void ComputeComposition(String id, String id1, HashMap<String, String> table,
-			HashMap<String, String> mapping, HashMap<String, String> mapping1, String child, ArrayList<String> set) {
-		char[] result = table.get(mapping.get(id) + " - " + mapping.get(id1)).toCharArray();
+	private static void ComputeComposition(String id, String id1, HashMap<String, ArrayList<String>> table,
+			HashMap<String, String> mapping, HashMap<String, String> mapping1, String child, ArrayList<String> set, String type, int langsize) {
+		
+		ArrayList<String> comp = table.get(mapping.get(id) + " - " + mapping.get(id1));
+		for(String r : comp) {
+			char[] result ;
+			if(type.contains("Allen")) {
+				result = r.toCharArray();
+				for (int i = 0; i < result.length; i++) {
+					ArrayList<String> cst = new ArrayList<String>(
+							Arrays.asList(mapping1.get(result[i] + ""), child.split(",")[0] + "", child.split(",")[1] + ""));
+
+					ACQ_IConstraint c = CstrFactory.getConstraint(cst);
+					if (!set.contains(c.getName()))
+						set.add(c.getName());
+					if (set.size() == langsize)
+						return;
+				}
+			}else {
+				
+				ArrayList<String> cst = new ArrayList<String>(
+						Arrays.asList(mapping1.get(r + "").replace(",", " "), child.split(",")[0] + "", child.split(",")[1] + ""));
+				try {
+			    if(cst.get(0).split(" ").length>1) {
+			    	
+			    	for(String cst_ : cst.get(0).split(" ")) {
+			    		ArrayList<String> cst1 = new ArrayList<String>(
+								Arrays.asList(cst_, child.split(",")[0] + "", child.split(",")[1] + ""));
+			    	ACQ_IConstraint c = CstrFactory.getConstraint(cst1);
+					
+					if (!set.contains(c.getName()))
+						set.add(c.getName());
+					if (set.size() == langsize)
+						return;
+			    	
+			    	}
+			    }else {
+				ACQ_IConstraint c = CstrFactory.getConstraint(cst);
+				
+				if (!set.contains(c.getName()))
+					set.add(c.getName());
+				if (set.size() == langsize)
+					return;
+				}
+				}catch(Exception e) {
+					System.out.print(e+" :: "+ cst);
+				}
 		// System.out.println(mapping.get(id) + " - " + mapping.get(id1)+"::"+
 		// String.valueOf(result));
-		for (int i = 0; i < result.length; i++) {
-			ArrayList<String> cst = new ArrayList<String>(
-					Arrays.asList(mapping1.get(result[i] + ""), child.split(",")[0] + "", child.split(",")[1] + ""));
-
-			ACQ_IConstraint c = CstrFactory.getConstraint(cst);
-			if (!set.contains(c.getName()))
-				set.add(c.getName());
-			if (set.size() == 13)
-				return;
+		
+			}
+	}
 		}
 
-	}
 
 }

@@ -116,9 +116,13 @@ public class ExpeParser  {
 			List<File> files = Arrays.asList(folder.listFiles());
 			Iterator<File> fileIterator = files.iterator();
 			while (fileIterator.hasNext() && path == null) {
+				
 				path = findPath(fileIterator.next(), filename);
+				
 			}
+			
 		} else {
+			
 			Matcher matcher = filename.matcher(folder.getName().toLowerCase());
 			if (matcher.find()) {
 				path = folder.getAbsolutePath();
