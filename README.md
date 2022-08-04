@@ -2,7 +2,7 @@
 
 ## DOWNLOAD EXECUTALBLE JAR FILE 
 
-- [acq-1.0.0.jar](https://gite.lirmm.fr/lazaar/ConstraintAcquisition)
+- [geqca.jar](https://gite.lirmm.fr/lazaar/ConstraintAcquisition)
 
 ## INSTALLATION
 
@@ -13,9 +13,9 @@ If you want to use the source code, the pom.xml file of this project contains al
 
 ## USAGE
 
-To get available options:
+To get available options for geqca:
 ```shell
-java -jar acq-*.jar -h
+java -jar geqca.jar -h
 ```
 
 ## DEPENDENCIES
