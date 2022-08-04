@@ -178,6 +178,8 @@ public class GEQCA_IQ {
 
 	public void process_composition() {
 		CombinationIterator iterator1 = new CombinationIterator(nb_vars, 2);
+		 ArrayList<Long>relationtimes=null;
+
 		List<int[]> variables = new ArrayList<int[]>();
 		while (iterator1.hasNext()) {
 			int[] vars = new int[2];
@@ -198,7 +200,7 @@ public class GEQCA_IQ {
 			System.out.println(scope);
 			ArrayList<String> L_s = L.get(scope);
 
-			relationsForPair(L_s, scope);
+			relationtimes=relationsForPair(L_s, scope);
 
 			if (L_s.size() > 1) {
 				if (verbose)
@@ -210,7 +212,7 @@ public class GEQCA_IQ {
 
 			boolean nocollapse = true;
 			if (propagate) {
-				nocollapse = PathConsistency();
+				nocollapse = PathConsistency(relationtimes);
 				propagate = false;
 			}
 			System.out.println(L);
@@ -231,6 +233,7 @@ public class GEQCA_IQ {
 
 	public void process_random() {
 		CombinationIterator iterator1 = new CombinationIterator(nb_vars, 2);
+		ArrayList<Long>relationtimes=null;
 		List<int[]> variables = new ArrayList<int[]>();
 		while (iterator1.hasNext()) {
 			int[] vars = new int[2];
@@ -255,7 +258,7 @@ public class GEQCA_IQ {
 
 			ArrayList<String> L_s = L.get(scope);
 
-			relationsForPair(L_s, scope);
+			relationtimes=relationsForPair(L_s, scope);
 
 			if (L_s.size() > 1) {
 				if (verbose)
@@ -267,7 +270,7 @@ public class GEQCA_IQ {
 
 			boolean nocollapse = true;
 			if (propagate) {
-				nocollapse = PathConsistency();
+				nocollapse = PathConsistency(relationtimes);
 				propagate = false;
 			}
 			
@@ -282,7 +285,7 @@ public class GEQCA_IQ {
 			times.add((end - start));
 		}
 
-		boolean nocollapse = PathConsistency();
+		boolean nocollapse = PathConsistency(relationtimes);
 		FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
 
 		System.out.println("Converage :: " + nocollapse);
@@ -301,6 +304,8 @@ public class GEQCA_IQ {
 				variables.add(new int[] { vars[0], vars[1] });
 			}
 		}
+		 ArrayList<Long>relationtimes=null;
+
 		// Collections.shuffle(variables);
 		ACQ_SelectionHeuristic selection = new ACQ_SelectionHeuristic();
 		long end = System.currentTimeMillis();
@@ -315,7 +320,7 @@ public class GEQCA_IQ {
 			// System.out.println(scope);
 			ArrayList<String> L_s = L.get(scope);
 
-			relationsForPair(L_s, scope);
+			relationtimes=relationsForPair(L_s, scope);
 
 			if (L_s.size() > 1) {
 				if (verbose)
@@ -326,7 +331,7 @@ public class GEQCA_IQ {
 			}
 			boolean nocollapse = true;
 			if (propagate) {
-				nocollapse = PathConsistency();
+				nocollapse = PathConsistency(relationtimes);
 				propagate = false;
 			}
 
@@ -339,7 +344,7 @@ public class GEQCA_IQ {
 			FileManager.printFile(input, "Tasks" + nb_vars / 2 + "_" + exp.getName() + "_" + sheuristic + ".csv");
 			times.add((end - start));
 		}
-		boolean nocollapse = PathConsistency();
+		boolean nocollapse = PathConsistency(relationtimes);
 		FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
 
 		System.out.println("Converage :: " + nocollapse);
@@ -379,7 +384,7 @@ public class GEQCA_IQ {
 		DefaultEdge eg=completeGraph.getEdge(vars[0]+"", vars[1]+"");
 	 	 //completeGraph.removeEdge(eg);
 		 ArrayList<DefaultEdge> edgs= new ArrayList<DefaultEdge>();
-
+		 ArrayList<Long>relationtimes=null;
 		while (!variables.isEmpty()) {
 			long start = System.currentTimeMillis();
 
@@ -393,7 +398,7 @@ public class GEQCA_IQ {
 			System.out.println(scope);
 			ArrayList<String> L_s = L.get(scope);
 
-			relationsForPair(L_s, scope);
+			relationtimes=relationsForPair(L_s, scope);
 
 			if (L_s.size() > 1) {
 				if (verbose)
@@ -404,7 +409,7 @@ public class GEQCA_IQ {
 			}
 			boolean nocollapse = true;
 			if (propagate) {
-				nocollapse = PathConsistency();
+				nocollapse = PathConsistency(relationtimes);
 				propagate = false;
 			}
 
@@ -417,7 +422,7 @@ public class GEQCA_IQ {
 			FileManager.printFile(input, "Tasks" + nb_vars / 2 + "_" + exp.getName() + "_" + sheuristic + ".csv");
 			times.add((end-start));
 		}
-		boolean nocollapse =PathConsistency();
+		boolean nocollapse =PathConsistency(relationtimes);
 
 		FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
 
@@ -456,6 +461,7 @@ public class GEQCA_IQ {
 		long end = System.currentTimeMillis();
 		int i = 0;
 		int[] vars = variables.get(0);
+		ArrayList<Long> relationtimes=null;
 		while (!variables.isEmpty()) {
 			long start = System.currentTimeMillis();
 
@@ -469,7 +475,7 @@ public class GEQCA_IQ {
 			System.out.println(scope);
 			ArrayList<String> L_s = L.get(scope);
 
-			relationsForPair(L_s, scope);
+			 relationtimes=relationsForPair(L_s, scope);
 
 			if (L_s.size() > 1) {
 				if (verbose)
@@ -478,9 +484,10 @@ public class GEQCA_IQ {
 				if (verbose)
 					System.out.println("Constraint number " + i++ + " has been learned");
 			}
+			
 			boolean nocollapse = true;
 			if (propagate) {
-				nocollapse = PathConsistency();
+				nocollapse = PathConsistency(relationtimes);
 				propagate = false;
 			}
 
@@ -493,7 +500,7 @@ public class GEQCA_IQ {
 			FileManager.printFile(input, "Tasks" + nb_vars / 2 + "_" + exp.getName() + "_" + sheuristic + ".csv");
 			times.add((end-start));
 		}
-		boolean nocollapse =PathConsistency();
+		boolean nocollapse =PathConsistency(relationtimes);
 
 		FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
 
@@ -501,9 +508,11 @@ public class GEQCA_IQ {
 
 	}
 
-	protected void relationsForPair(ArrayList<String> L_s, String scope) {
+	protected ArrayList<Long> relationsForPair(ArrayList<String> L_s, String scope) {
 
-
+		ArrayList<Long> times = new ArrayList<Long>();
+		long start = 0;
+		long time =0;
 			
 			int n=0;
 			if(this.type.contains("Allen"))
@@ -514,6 +523,8 @@ public class GEQCA_IQ {
 			if(L_s.size()==n )
 				ask_or_not=true;
 			if(ask_or_not==true) {
+				start = System.currentTimeMillis();
+
 				boolean answer_IQ = askIQ(scope); 
 
 			if(!answer_IQ) {
@@ -537,6 +548,8 @@ public class GEQCA_IQ {
 			} else {
 				nPositives++;
 			}}
+				time=System.currentTimeMillis();
+				times.add((time-start));
 			}else {
 				
 				iqPositives++;
@@ -545,6 +558,8 @@ public class GEQCA_IQ {
 			
 			
 			}else {
+				start = System.currentTimeMillis();
+
 				for (int i = 0; i < L_s.size(); i++) {
 					String cst = L_s.get(i);
 
@@ -564,9 +579,13 @@ public class GEQCA_IQ {
 				} else {
 					nPositives++;
 				}
-			}}
+			}
+				
+				time=System.currentTimeMillis();
+				times.add((time-start));
+			}
 		
-
+			return times;
 	}
 
 	public void setVerbose(boolean verbose) {
@@ -1065,7 +1084,7 @@ public class GEQCA_IQ {
 		}
 	}
 
-	public boolean PathConsistency() {
+	public boolean PathConsistency(ArrayList<Long> relationtimes) {
 
 		ArrayList<int[]> Q = InitPropagationQueue();
 		int i = 0;
@@ -1112,8 +1131,10 @@ public class GEQCA_IQ {
 
 			Q.remove(C_ikj);
 			end = System.currentTimeMillis();
-			elapsed += (end - start);
-				if ( elapsed >= solver.getLimit()) {
+			elapsed = end - start;
+			relationtimes.set(relationtimes.size()-1, relationtimes.get(relationtimes.size()-1)+(elapsed));
+			
+			if (relationtimes.get(relationtimes.size()-1) >= solver.getLimit()) {
 					 System.out.println("elapsed ::"+elapsed);
 					FileManager.printFile(removed+"\t"+elapsed, "PC_Removed_"+exp.getName()+sheuristic);
 
