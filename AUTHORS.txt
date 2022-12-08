@@ -1,6 +1,6 @@
 Here is an inevitably incomplete list of MUCH-APPRECIATED CONTRIBUTORS --
 people who have submitted patches, reported bugs, added translations, helped
-answer newbie questions, and generally made QUACQ/PACQ that much better:
+answer newbie questions, and generally made CONACQ/QUACQ/PACQ that much better:
 
 Nadjib Lazaar <lazaar@lirmm.fr>
 Nassim Belmecheri <nassim.belmecheri@lirmm.fr>
