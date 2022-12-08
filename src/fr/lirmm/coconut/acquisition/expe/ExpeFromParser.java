@@ -157,7 +157,7 @@ public class ExpeFromParser extends DefaultExperience {
 							constraints.add(new BinaryArithmetic(rel.name(), vars[pos[0]], rel.getOperator(),
 									vars[pos[1]], rel.getNegation().name()));
 
-						} else {
+						} else if (!rel.isSymmetric()){
 							constraints.add(new BinaryArithmetic(rel.name(), vars[pos[0]], rel.getOperator(),
 									vars[pos[1]], rel.getNegation().name()));
 

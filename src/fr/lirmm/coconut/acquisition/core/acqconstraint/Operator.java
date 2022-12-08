@@ -141,5 +141,8 @@ public enum Operator {
 		else if (s.matches("^LessX.*"))
 			return Operator.LT;
 		throw new UnsupportedOperationException();
+	
+	
 	}
+	
 }
