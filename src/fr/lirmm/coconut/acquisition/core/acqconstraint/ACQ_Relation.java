@@ -129,6 +129,61 @@ public enum ACQ_Relation {
 			return LessX_;
 		case LessX_:
 			return GreaterEqualX_;
+		case AT_GT:
+			return AT_LT;
+		case AT_LE:
+			return AT_GE;
+		case AT_GE:
+			return AT_LE;
+		case AT_LT:
+			return AT_GT;
+		case DistGreaterXYZ:
+			return DistLessXYZ;
+		case DistLessEqualXYZ:
+			return DistGreaterEqualXYZ;
+		case DistLessXYZ:
+			return DistGreaterXYZ;
+		case DistGreaterEqualXYZ:
+			return DistLessEqualXYZ;
+		case DistGreaterXYZT:
+			return DistLessXYZT;
+		case DistLessEqualXYZT:
+			return DistGreaterEqualXYZT;
+		case DistLessXYZT:
+			return DistGreaterXYZT;
+		case DistGreaterEqualXYZT:
+			return DistLessEqualXYZT;
+		case PLessEqualXY:
+			return PGreaterEqualXY;
+		case PGreaterXY:
+			return PLessXY;
+		case PGreaterEqualXY:
+			return PLessEqualXY;
+		case PLessXY:
+			return PGreaterXY;
+		default:
+			throw new UnsupportedOperationException();
+		}
+	}
+	
+	public ACQ_Relation getRightDirection() {			//NL: if < then >...  // precondition: not symetric relation
+		switch (this) {
+		case GreaterXY:
+			return LessXY;
+		case LessEqualXY:
+			return GreaterEqualXY;
+		case GreaterEqualXY:
+			return LessEqualXY;
+		case LessXY:
+			return GreaterXY;
+		case GreaterX_:
+			return LessX_;
+		case LessEqualX_:
+			return GreaterEqualX_;
+		case GreaterEqualX_:
+			return LessEqualX_;
+		case LessX_:
+			return GreaterX_;
 		case InDiag1:
 			return OutDiag1;
 		case OutDiag1:

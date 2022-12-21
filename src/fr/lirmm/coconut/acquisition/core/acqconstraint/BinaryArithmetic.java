@@ -127,6 +127,34 @@ public class BinaryArithmetic extends BinaryConstraint {
 		// TODO Auto-generated method stub
 		return negation;
 	}
+	
+	
+	public BinaryArithmetic getRightDIrection() {			//NL: if < then > // precondition: not a symetric relation
+
+	
+		if (op1 == Operator.PL || op1 == Operator.MN || op1 == Operator.Dist) {
+
+			if(op1 == Operator.Dist && this.getNegName().equals("AT_LE"))
+				return new BinaryArithmetic(Operator.getRightDirection(op2).name(), variables[0], op1, variables[1], Operator.LT,cste, "AT_GE");
+
+			if(op1 == Operator.Dist && this.getNegName().equals("AT_GE"))
+				return new BinaryArithmetic(Operator.getRightDirection(op2).name(), variables[0], op1, variables[1], Operator.GT,cste, "AT_LE");
+
+			if(op1 == Operator.Dist && this.getNegName().equals("AT_LT"))
+				return new BinaryArithmetic(Operator.getRightDirection(op2).name(), variables[0], op1, variables[1], Operator.GE, cste, "AT_LT");
+
+			if(op1 == Operator.Dist && this.getNegName().equals("AT_GT"))
+				return new BinaryArithmetic(Operator.getRightDirection(op2).name(), variables[0], op1, variables[1], Operator.LE, cste, "AT_GT");
+
+			return new BinaryArithmetic(Operator.getRightDirection(op2).name(), variables[0], op1, variables[1], Operator.getRightDirection(op2), cste, Operator.getOpposite(Operator.getRightDirection(op1)).name());
+		} else  {
+			return new BinaryArithmetic(Operator.getRightDirection(op1).name(), variables[0], Operator.getRightDirection(op1), variables[1], op2, cste, Operator.getOpposite(Operator.getRightDirection(op1)).name());
+		}
+
+		
+
+	}
+
 
 	/**
 	 * get the constraint to the specified model (a choco solver model in this case)

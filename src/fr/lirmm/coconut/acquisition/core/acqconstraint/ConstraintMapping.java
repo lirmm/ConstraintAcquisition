@@ -17,8 +17,6 @@ public class ConstraintMapping {
 
 	public Unit get(ACQ_IConstraint constr) {
 		Unit res = mapping.get(constr);
-		if(res==null)
-			System.out.println();
 		assert (!res.isNeg());
 		return res;
 	}

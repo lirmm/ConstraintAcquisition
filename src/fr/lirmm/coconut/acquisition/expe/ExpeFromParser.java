@@ -60,7 +60,7 @@ public class ExpeFromParser extends DefaultExperience {
 			public int getMax(int numvar) {
 				return exp.getMaxDom();
 			}
-		}, vrs, vls);    
+		}, vrs, vls);
 	}
 
 	public ACQ_Learner createLearner() {
@@ -130,7 +130,7 @@ public class ExpeFromParser extends DefaultExperience {
 	}
 
 	private ConstraintSet convert(ExpeParser experiment) {
-		ConstraintFactory cf = new ConstraintFactory();
+ 		ConstraintFactory cf = new ConstraintFactory();
 		ConstraintSet constraints = cf.createSet();
 		int[] duration = null;
 		if (experiment.getName().contains("scheduling"))
@@ -139,9 +139,13 @@ public class ExpeFromParser extends DefaultExperience {
 			constraints.add(ACQ_Constraint.CstrFactory.getConstraint(c));
 		}
 
+//		ArrayList<ACQ_Relation> relList = new ArrayList<>();
+
 		for (ArrayList<String> r : experiment.getGamma()) {
 			ACQ_Relation rel = ACQ_Relation.valueOf(r.get(0));
-
+			
+//			if(!rel.isSymmetric())relList.add(rel.getRightDirection());
+			
 			CombinationIterator iterator = new CombinationIterator(experiment.getNbVars(), rel.getArity());
 
 			while (iterator.hasNext()) {
@@ -149,67 +153,72 @@ public class ExpeFromParser extends DefaultExperience {
 				AllPermutationIterator pIterator = new AllPermutationIterator(rel.getArity());
 
 				// Binary constraints
+				BinaryArithmetic cstr;
 				if (rel.getArity() == 2 && !rel.IsPrecedence()) {
 					while (pIterator.hasNext()) {
 						int[] pos = pIterator.next();
+						cstr = new BinaryArithmetic(rel.name(), vars[pos[0]], rel.getOperator(), vars[pos[1]],
+								rel.getNegation().name());
 
-						if (rel.isSymmetric() && vars[pos[0]] < vars[pos[1]]) {
-							constraints.add(new BinaryArithmetic(rel.name(), vars[pos[0]], rel.getOperator(),
-									vars[pos[1]], rel.getNegation().name()));
+				//		if (rel.isSymmetric() && vars[pos[0]] < vars[pos[1]]) {
+						if ( vars[pos[0]] < vars[pos[1]]) {
+							constraints.add(cstr);
 
-						} else if (!rel.isSymmetric()){
-							constraints.add(new BinaryArithmetic(rel.name(), vars[pos[0]], rel.getOperator(),
-									vars[pos[1]], rel.getNegation().name()));
+						} 
+				//		else if (!rel.isSymmetric() && !relList.contains(rel)) {
+				//			constraints.add(cstr);
 
-						}
-					}
+//						}
+
+					
 				}
-				if (rel.IsPrecedence()) {
-					while (pIterator.hasNext()) {
-						int[] pos = pIterator.next();
+			}if(rel.IsPrecedence())
 
-						constraints.add(new ScalarArithmetic(rel.name(), new int[] { vars[pos[0]], vars[pos[1]] },
-								new int[] { 1, -1 }, rel.getOperator(), -1 * duration[vars[pos[0]]],
-								rel.getNegation().name()));
+	{
+		while (pIterator.hasNext()) {
+			int[] pos = pIterator.next();
 
-					}
+			constraints.add(new ScalarArithmetic(rel.name(), new int[] { vars[pos[0]], vars[pos[1]] },
+					new int[] { 1, -1 }, rel.getOperator(), -1 * duration[vars[pos[0]]], rel.getNegation().name()));
 
-				}
-
-				// Ternary Constraints
-				if (rel.getArity() == 3) {
-					while (pIterator.hasNext()) {
-						int[] pos = pIterator.next();
-
-						if (vars[pos[0]] > vars[pos[1]] && vars[pos[1]] > vars[pos[2]]) {
-							constraints.add(new ScalarArithmetic(rel.name(),
-									new int[] { vars[pos[0]], vars[pos[1]], vars[pos[2]] }, new int[] { 1, -2, 1 },
-									rel.getOperator(), 0, rel.getNegation().name()));
-
-						}
-
-					}
-
-				}
-				// Quaternary Constraints
-
-				if (rel.getArity() == 4) {
-					while (pIterator.hasNext()) {
-						int[] pos = pIterator.next();
-
-						if (vars[pos[0]] > vars[pos[1]] && vars[pos[2]] > vars[pos[3]] && vars[pos[0]] > vars[pos[2]]) {
-							constraints.add(new ScalarArithmetic(rel.name(),
-									new int[] { vars[pos[0]], vars[pos[1]], vars[pos[2]], vars[pos[3]] },
-									new int[] { 1, -1, -1, 1 }, rel.getOperator(), 0, rel.getNegation().name()));
-
-						}
-
-					}
-
-				}
-			}
 		}
-		return constraints;
+
+	}
+
+	// Ternary Constraints
+	if(rel.getArity()==3)
+	{
+		while (pIterator.hasNext()) {
+			int[] pos = pIterator.next();
+
+			if (vars[pos[0]] > vars[pos[1]] && vars[pos[1]] > vars[pos[2]]) {
+				constraints.add(new ScalarArithmetic(rel.name(), new int[] { vars[pos[0]], vars[pos[1]], vars[pos[2]] },
+						new int[] { 1, -2, 1 }, rel.getOperator(), 0, rel.getNegation().name()));
+
+			}
+
+		}
+
+	}
+	// Quaternary Constraints
+
+	if(rel.getArity()==4)
+	{
+		while (pIterator.hasNext()) {
+			int[] pos = pIterator.next();
+
+			if (vars[pos[0]] > vars[pos[1]] && vars[pos[2]] > vars[pos[3]] && vars[pos[0]] > vars[pos[2]]) {
+				constraints.add(new ScalarArithmetic(rel.name(),
+						new int[] { vars[pos[0]], vars[pos[1]], vars[pos[2]], vars[pos[3]] },
+						new int[] { 1, -1, -1, 1 }, rel.getOperator(), 0, rel.getNegation().name()));
+
+			}
+
+		}
+
+	}
+	}}return constraints;
+
 	}
 
 	@Override

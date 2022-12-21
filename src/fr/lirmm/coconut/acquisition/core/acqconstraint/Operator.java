@@ -94,6 +94,21 @@ public enum Operator {
 			throw new UnsupportedOperationException();
 		}
 	}
+	
+	public static Operator getRightDirection(Operator operator) {
+		switch (operator) {
+		case LT:
+			return GT;
+		case GT:
+			return LT;
+		case LE:
+			return GE;
+		case GE:
+			return LE;
+		default:
+			throw new UnsupportedOperationException();
+		}
+	}
 
 	public static Operator getOperator(String s) {
 		System.out.println(s);
