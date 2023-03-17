@@ -1,0 +1,12 @@
+nbVars 50
+domainSize 1 525
+
+Gamma
+DisconnectedXY
+ExternallyConnectedXY
+TangentialProperPartXY
+REqualXY
+NonTangentialProperPartXY
+PartiallyOverlappingXY
+TangentialProperPartInverseXY
+NonTangentialProperPartInverseXY

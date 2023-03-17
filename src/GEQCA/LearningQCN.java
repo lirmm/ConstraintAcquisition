@@ -193,7 +193,7 @@ public class LearningQCN {
 			long start = System.currentTimeMillis();
 
 			String scope = vars[0] + "," + vars[1];
-			System.out.println(scope);
+			//System.out.println(scope);
 			ArrayList<String> L_s = L.get(scope);
 
 			relationsForPair(L_s, scope);
@@ -211,22 +211,23 @@ public class LearningQCN {
 				nocollapse = PathConsistency();
 				propagate = false;
 			}
-			System.out.println(L);
-
+			//System.out.println(L);
+			if(!nocollapse){
+				break;
+			}
 			end = System.currentTimeMillis();
 			String input = (nPositives + nNegatives) + "\t" + nPositives + "\t" + nNegatives + "\t"
 					+ ((end - start) / 1000) + "\t";
 			FileManager.printFile(input, "Tasks" + nb_vars / 2 + "_" + exp.getName() + "_" + sheuristic + ".csv");
 			times.add((end - start));
 		}
-		FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
+		//FileManager.printFile("*********************", "PC_Removed_"+exp.getName()+sheuristic);
 
 		// boolean nocollapse = PathConsistency();
 
-		// System.out.println("Converage :: " + nocollapse);
+		// //System.out.println("Converage :: " + nocollapse);
 
 	}
-
 	public void process_random() {
 		CombinationIterator iterator1 = new CombinationIterator(nb_vars, 2);
 		List<int[]> variables = new ArrayList<int[]>();

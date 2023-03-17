@@ -6,10 +6,20 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.function.Supplier;
 
 import org.jgrapht.Graph;
+import org.jgrapht.GraphPath;
+import org.jgrapht.alg.tour.TwoApproxMetricTSP;
 import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleWeightedGraph;
 import org.jgrapht.graph.builder.GraphTypeBuilder;
+import org.jgrapht.util.SupplierUtil;
+
+import fr.lirmm.coconut.acquisition.core.combinatorial.CombinationIterator;
+
 
 public class ACQ_SelectionHeuristic {
 	HashMap<String, Integer> labels = new HashMap<String, Integer>();
@@ -64,12 +74,12 @@ public class ACQ_SelectionHeuristic {
 	}
 
 	public int[] PathHeuristic(Graph<String, DefaultEdge> completeGraph, int[] c_ij, int n) {
-
 		int[] c_star = new int[2];
 
+        
 		Random r = new Random(System.currentTimeMillis());
-
-		System.out.println(":::" + n);
+		
+		//System.out.println(":::" + n);
 		for (int i = 0; i < n; i++) {
 			int k = (int) (10 * Math.random()) & 1;
 
@@ -154,7 +164,7 @@ public class ACQ_SelectionHeuristic {
 			if ((first.pair[0] != 0 || first.pair[1] != 0) || (second.pair[0] != 0 || second.pair[1] != 0)) {
 
 				DefaultEdge selected = null;
-				// node0==2 && node1==5)
+
 				if (first.min_weight <= second.min_weight) {
 					selected = completeGraph.getEdge(first.pair[0] + "", first.pair[1] + "");
 
@@ -166,10 +176,12 @@ public class ACQ_SelectionHeuristic {
 				}
 			} else {
 				System.out.print(edgs);
+				
+				Set<DefaultEdge> eg = completeGraph.edgeSet();
+				if(eg.size()>0) {
 
-				DefaultEdge eg = edgs.get(0);
-
-				String e = eg.toString();
+				
+				String e = eg.iterator().next().toString();
 				e = e.replace("(", "");
 				e = e.replace(")", "");
 				e = e.replace(" ", "");
@@ -187,9 +199,10 @@ public class ACQ_SelectionHeuristic {
 
 					return second.pair;
 				}
-
+				}
+				return new int[2];
 			}
-		}else if(c_star != null) {
+		}else if(c_star != null && c_star1 == null) {
 			return c_star;
 		}else  {
 			return c_star1;
@@ -275,6 +288,15 @@ public class ACQ_SelectionHeuristic {
 				c_star[0] = id2;
 			}
 
+		}else if(selected == null && completeGraph.edgeSet().size()>0){
+			String e = completeGraph.edgeSet().iterator().next().toString();
+			e = e.replace("(", "");
+			e = e.replace(")", "");
+			e = e.replace(" ", "");
+			int id1 = Integer.parseInt(e.split(":")[0]);
+			int id2 = Integer.parseInt(e.split(":")[1]);
+			c_star[0] = id1;
+			c_star[1] = id2;
 		}
 
 		return new Pair(c_star, minweight);
@@ -341,4 +363,63 @@ public class ACQ_SelectionHeuristic {
 		}
 	}
 
-}
+	public GraphPath<String, DefaultWeightedEdge> LeastCostPathHeuristic(Graph<String, DefaultWeightedEdge> completeGraph) {
+		GraphPath<String, DefaultWeightedEdge> sp = null;
+		try {
+			sp = new TwoApproxMetricTSP().getTour(completeGraph);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//System.out.print(sp.getWeight());
+		return sp;
+	}
+
+	public Graph Weightedbuild(CombinationIterator iterator1, List<String> variables, HashMap<String, ArrayList<String>> L) {
+
+		// Collections.shuffle(variables);
+		Supplier<String> vSupplier = new Supplier<String>() {
+			private int id = 0;
+
+			@Override
+			public String get() {
+				return "" + id++;
+			}
+		};
+		Graph<String, DefaultWeightedEdge> completeGraph = new SimpleWeightedGraph<>(vSupplier,
+				SupplierUtil.createDefaultWeightedEdgeSupplier());
+
+		while (iterator1.hasNext()) {
+			int[] vars = new int[2];
+			vars = iterator1.next();
+			String scope = vars[0] + "," + vars[1];
+
+			ArrayList<String> temp = L.get(scope);
+			int i = 0;
+			for (String c : temp)
+				i += labels.get(c);
+			if(!variables.contains(scope)) {
+			if (vars[0] < vars[1]) {
+				completeGraph.addVertex(vars[0] + "");
+				completeGraph.addVertex(vars[1] + "");
+				DefaultWeightedEdge e1 =completeGraph.addEdge(vars[0] + "", vars[1] + "");
+
+				completeGraph.setEdgeWeight(e1, i); 
+
+			}
+			}else {
+				
+				if (vars[0] < vars[1]) {
+					completeGraph.addVertex(vars[0] + "");
+					completeGraph.addVertex(vars[1] + "");
+					DefaultWeightedEdge e1 =completeGraph.addEdge(vars[0] + "", vars[1] + "");
+
+					completeGraph.setEdgeWeight(e1, 0); 
+				}
+			
+		}}
+		//System.out.println(completeGraph.edgeSet().size());
+		return completeGraph;
+	}
+	}
+	
